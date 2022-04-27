@@ -20,7 +20,7 @@ public class Ex17_Test5 {
 			System.out.println(num + "은 3의 배수입니다.");
 		} else {System.out.println(num + "은 2, 3, 6의 배수가 아닙니다.");
 	}
-		// 다른 버전
+		/* 다른 버전
 		int num = 1235;
 		if(num % 2 == 0 && num % 3 != 0) {
 			System.out.println(num + "은 2의 배수입니다.");
@@ -29,6 +29,6 @@ public class Ex17_Test5 {
 		} else if(num % 6 == 0) {
 			System.out.println(num + "은 6의 배수입니다.");
 		} else {System.out.println(num + "은 2, 3, 6의 배수가 아닙니다.");
-	}
+	}   */
 }
 }
