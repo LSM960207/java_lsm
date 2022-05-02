@@ -33,7 +33,7 @@ public class Ex1_Calculator {
 		 *  */
 		Scanner scan = new Scanner(System.in);
 		// 방법1
-		for ( ; ; ) {
+		for ( ; ;) {
 			System.out.println("산술 연산자 메뉴");
 			System.out.println("1. 더하기");
 			System.out.println("2. 빼기");
