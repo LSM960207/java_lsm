@@ -10,7 +10,21 @@ public class Ex5_If2 {
 		 * */ 
 		int num =12;
 		
+		if(num % 6 == 0) {
+			System.out.println(num + "는 6의 배수");
+		}else {
+			System.out.println(num + "는 6의 배수 아님");
+		}
 		
+		if(num % 2 == 0) {
+			if(num % 3 == 0) {
+				System.out.println(num + "는 6의 배수");
+			}else {
+				System.out.println(num + "는 6의 배수 아님");	
+			}
+		}else {
+			System.out.println(num + "는 6의 배수 아님");
+		}
 		
 	}
 
