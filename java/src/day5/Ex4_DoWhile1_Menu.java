@@ -10,7 +10,7 @@ public class Ex4_DoWhile1_Menu {
 		
 		int menu = 5;
 		Scanner scan = new Scanner(System.in);
-		
+
 		do {
 			System.out.println("메뉴");
 			System.out.println("1. 학생정보입력");
@@ -19,7 +19,8 @@ public class Ex4_DoWhile1_Menu {
 			System.out.println("4. 학생정보삭제");
 			System.out.println("5. 프로그램 종료");
 			System.out.print("메뉴를 선택하세요 : ");
+			menu = scan.nextInt();
 		}while(menu != 5);
-		scan.close();
+		scan.close();	
 		}
 }
