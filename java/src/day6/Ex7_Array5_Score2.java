@@ -30,7 +30,7 @@ public class Ex7_Array5_Score2 {
 		// 학생 수 입력
 		System.out.print("학생 수를 입력하세요 : ");
 		int count = scan.nextInt();
-		// 입력받은 학생 수가 ㅇ10보다 크면 최대 10명까지입니다. 라고 출력
+		// 입력받은 학생 수가 10보다 크면 최대 10명까지입니다. 라고 출력
 		if(count > 10) {
 			System.out.println("최대 10명까지입니다.");
 		}
