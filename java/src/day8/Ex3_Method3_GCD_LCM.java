@@ -23,7 +23,7 @@ public class Ex3_Method3_GCD_LCM {
 		}
 		return gcd;
 	}
-	/* 
+	/* 	
 	 * 기능 : 두 정수의 최소공배수를 알려주는 메소드
 	 * 매개변수 : 두 정수 => int num1, int num2
 	 * 리턴타입 : 두 정수의 최소공배수 => 정수 => int
