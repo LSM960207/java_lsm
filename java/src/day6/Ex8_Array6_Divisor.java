@@ -6,7 +6,7 @@ public class Ex8_Array6_Divisor {
 		/* 정수 num의 약수를 배열에 저장한 후, 출력하는 코드를 작성하세요.
 		 * 약수는 최대 10개만 저장
 		 * num = 10 */
-		int num = 144000;
+		int num = 12;
 		int max = 10;
 		int div[] = new int[max];
 		int index = 0;
