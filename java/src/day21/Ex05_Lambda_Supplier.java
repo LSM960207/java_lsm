@@ -2,7 +2,7 @@ package day21;
 
 import java.util.function.Supplier;
 
-public class Ex05_Lambda_supplier {
+public class Ex05_Lambda_Supplier {
 
 	public static void main(String[] args) {
 		int min = 1, max = 10;
