@@ -4,7 +4,7 @@ use score;
 
 drop table if exists 학생;
 create table if not exists 학생(
-	학생번호	int 	, -- AUTO_INCREMENT는 기본키에만 설정할 수 있음
+	학생번호	int 	, -- auto_increment는 기본키에만 설정할 수 있음
     학년 	int 	not null default 1,
     반 		int 	not null default 1,
     번호 	int 	not null default 1,
@@ -48,3 +48,30 @@ alter table 보유
 	add foreign key(학생번호) references 학생(학생번호);
 alter table 보유
 	add foreign key(성적번호) references 성적(성적번호);
+-- 1학년 1반 1번 홍길동 학생 정보를 저장하는 쿼리문을 작성하세요
+-- 1학년 1반 2번 임꺽정 학생 정보를 저장하는 쿼리문을 작성하세요
+insert into 학생(학년, 반, 번호, 이름) values(1, 1, 1,'홍길동'), (1, 1, 2, '임꺽정');
+/* 
+1학년 1반 1번 학생의 1학년 1학기 국어 성적은 중간 100, 기말 90, 수행 80이다. 이 정보를 테이블에 추가하는 쿼리를 작성해보세요.
+1. 학생 테이블에 1학년 1반 1번 학생이 있는지 확인 (있다=> 학생번호가 1번 / 없다=> 추가)
+2. 성적 테이블에  1학년 1학기 국어 성적을 추가
+3. 보유 테이블에 학생번호가 1번, 성적번호가 1번, 중간 100 / 기말 90 / 수행 80을 추가
+ */
+insert into 성적(학년, 학기, 과목명) values(1, 1, '국어');
+insert into 보유(학생번호, 성적번호, 중간, 기말, 수행) values(1, 1, 100, 90, 80);
+insert into 보유(학생번호, 성적번호, 중간, 기말, 수행) values(2, 1, 80, 85, 89);
+
+-- 1학년 1반 1번 학생의 이름을 고길동으로 수정하는 쿼리
+update 학생 
+	set
+		이름 = '고길동'
+	where 학년 = 1 and 반 = 1 and 번호 = 1;
+    
+-- 보유 테이블에 총점이라는 속성을 추가하는 쿼리문
+alter table 보유
+	add 총점 int not null default 0;
+    
+-- 중간 40%, 기말 50%, 수행 10%를 반영한 점수를 총점에 수정하는 쿼리문
+update 보유
+	set
+		총점 = 기말 * 0.5 + 중간 * 0.4 + 수행 * 0.1;
