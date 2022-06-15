@@ -24,13 +24,13 @@ select mo_title as 제목, ci_th_name as 영화관, ci_name as 상영관, sc_sta
 -- 6월 14일 CGV청주성안길에서 11:30에 상영하는 영화 <브로커>에 예매 가능한 좌석이 있는지 조회
 -- 예매 테이블을 고려
 select mo_title as 제목, ci_th_name as 영화관, ci_name as 상영관, sc_start_time as 상영시간,
-se_name as 좌석명, count(bd_bo_num) as 예매수
+	se_name as 좌석명, count(bd_bo_num) as 예매수
 	from screen
 	join movie on sc_mo_num = mo_num	-- 영화 제목을 위해 join
 	join cinema on sc_ci_num = ci_num	-- 지점을 위해 join
     join seat on se_ci_num = ci_num
     left join book on sc_num = bo_sc_num
-    left join bookdetail on bo_num = bd_bo_num
+    left join bookdetail on bo_num = bd_bo_num and bd_se_num = se_num
     where mo_title = '브로커' 
 		and ci_th_name = 'CGV청주성안길' 
 		and sc_start_time like '2022-06-14 11:30:00'
