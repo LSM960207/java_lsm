@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>형제 선택자 예제</title>
+	<style>
+		.box1 ~ p{
+			color: red;
+		}
+		/* 선택자1을 기준으로 다음 형제 요소 중에서 선택자2와 일치하는 요소들에 */
+		.box1 + p{
+			background: yellow;
+		}
+		/* 첫 번째 요소를 제외할 때 +를 자주 씀 */
+	</style>
+</head>
+<body>
+	<p class="title">456</p> 
+	<div class="box box1">123</div>
+	<p class="title">456</p>
+	<p class="contents">789</p>
+	<div class="box">abc</div>
+</body>
+</html>
