@@ -374,7 +374,86 @@ a{ text-decoration: none;}
 	background-position: -444px -19px;
 	opacity: 1;
 }
+.content-con .box-left3 .box-group-press {
+	position: relative;
+}
+.content-con .box-left3 .box-group-press {
+	border: 1px solid #dae1e6;
+	height: 260px;
+}
+.content-con .box-left3 .item-press {
+	float: left; width: calc(100% / 6);
+	height: 65px;
+	position: relative;
+}
+.content-con .box-left3 .link-press {
+	display: block; padding: 23px 0 22px;
+	text-align: center; height: 20px;
+}
+.content-con .box-left3 .line {
+	position: absolute;
+	background-color: #e4e8eb; z-index: 1;
+}
+.content-con .box-left3 .to-bottom1,
+.content-con .box-left3 .to-bottom2,
+.content-con .box-left3 .to-bottom3,
+.content-con .box-left3 .to-bottom4,
+.content-con .box-left3 .to-bottom5 {
+	width: 1px; top: 0; bottom: 0;
+}
+.content-con .box-left3 .to-bottom1 {left: 125px;}
+.content-con .box-left3 .to-bottom2 {left: 249px;}
+.content-con .box-left3 .to-bottom3 {left: 373px;}
+.content-con .box-left3 .to-bottom4 {left: 498px;}
+.content-con .box-left3 .to-bottom5 {left: 623px;}
 
+.content-con .box-left3 .to-right1,
+.content-con .box-left3 .to-right2,
+.content-con .box-left3 .to-right3 {
+	height: 1px; left: 0; right: 0;
+}
+.content-con .box-left3 .to-right1 {top: 66px;}
+.content-con .box-left3 .to-right2 {top: 131px;}
+.content-con .box-left3 .to-right3 {top: 196px;}
+.content-con .box-left3 .box-hover-press {
+	position: absolute; top: 0; left: 0; right: 0;
+	bottom: 0; background-color: #f7f9fa;
+	padding: 19px 0 18px; text-align: center;
+	font-size: 0; line-height: 0; display: none;
+}
+.content-con .box-left3 .item-press:hover .box-hover-press {
+	display: block;
+}
+.content-con .box-left3 .btn-subscribe-press,
+.content-con .box-left3 .link-news-press {
+	display: inline-block; padding: 7px 8px 5px;
+	background-color: #fff; border: 1px solid #dae1e6;
+	font-size: 12px; line-height: 16px;
+	color: #505050; vertical-align: top;
+}
+.content-con .box-left3 .btn-subscribe-press~a{
+	margin-left: -1px;
+}
+.content-con .box-left3 .btn-subscribe-press:hover,
+.content-con .box-left3 .link-news-press:hover {
+	border-color: #bec8d8; position: relative;
+}
+.content-con .box-left3 .btn-prev,
+.content-con .box-left3 .btn-next {
+	position: absolute; top: 110px; left: -27px;
+	z-index: 10;
+}
+.content-con .box-left3 .icon-prev,
+.content-con .box-left3 .icon-next {
+	width: 44px; height: 44px; display: inline-block;
+	background-position: 0 -299px;
+}
+.content-con .box-left3 .btn-next {
+	right: -13px; left:auto;
+}
+.content-con .box-left3 .icon-next {
+	background-position: -224px -158px;
+}
 
 
 
@@ -516,6 +595,17 @@ a{ text-decoration: none;}
 }
 .content-con .box-right2 .box-nav .btn-next::before {
 	background-position: -451px -392px;
+}
+
+/* 오른쪽 세 번째 박스 */
+.content-con .box-right3 {
+	margin-top: 12px;
+}
+.content-con .box-right3 .link-ad{
+	display: block; line-height: 0; 
+}
+.content-con .box-right3 .img-ad{
+	width: 350px; height: 200px;
 }
 
 
