@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>반응형 예제</title>
 	<style>
+		/* 작은 화면을 기준으로 구성 */
 		.box{
 			width: 100px; height: 100px; background-color: red;
 		}
@@ -14,7 +15,7 @@
 		최대 ~px이하일 때 css를 바꾸고 싶다면 : max-width
 		 */
 		 /* max : 1200, min : 600 */
-		@media (min-width: 600px){
+		@media (min-width: 600px) and (max-width: 1200px) {
 			.box{
 				width: 200px; height: 200px; background-color: green;
 			}
