@@ -21,7 +21,7 @@
 	</style>
 </head>
 <body>
-	<div>취미를 선택하세요.(최대 2개)</div>
+	<div>취미를 선택하세요.(최대 4개)</div>
 	<div>
 	<div class="text-box first"></div>
 	<div class="text-box"></div>
@@ -46,7 +46,7 @@
 					//2개를 넘으면 알림창을 띄우고,
 					//마지막에 체크된 체크박스의 체크를 해제(현재 클릭된 체크박스)
 					if(count > maxSelectCount){
-						alert('최대 2개까지 선택하세요.')
+						alert('최대 '+maxSelectCount+'개까지 선택하세요.')
 						$(this).prop('checked', false);
 					}else{
 						arr.push(val);
