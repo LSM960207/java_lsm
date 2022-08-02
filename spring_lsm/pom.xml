@@ -142,7 +142,7 @@
     		<groupId>org.apache.tiles</groupId>
     		<artifactId>tiles-template</artifactId>
     		<version>${org.apache.tiles-version}</version>
-</dependency>   
+		</dependency>   
 	</dependencies>
     <build>
         <plugins>
