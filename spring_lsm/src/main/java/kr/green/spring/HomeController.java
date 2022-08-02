@@ -40,12 +40,14 @@ public class HomeController {
 		System.out.println("취미는 " + hobby + "이고, " + time + "시간씩 합니다.");
 		return mv;
 	}
+	
 	@RequestMapping(value="/", method=RequestMethod.POST)
 	public ModelAndView homePost(ModelAndView mv, String hobby, Integer time) {
 		mv.setViewName("redirect:/");
 		System.out.println("취미는 " + hobby + "이고, " + time + "시간씩 합니다.");
 		return mv;
 	}
+	
 	
 	@RequestMapping(value="/hobby/{hobby1}/{time1}")
 	public ModelAndView hobby(ModelAndView mv,
@@ -60,6 +62,14 @@ public class HomeController {
 	public ModelAndView loginGet(ModelAndView mv) {
 		mv.setViewName("/main/login");
 		mv.addObject("setHeader", "타일즈");
+		return mv;
+	}
+	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public ModelAndView loginPost(ModelAndView mv, String id, String pw) {
+		mv.setViewName("redirect:/");
+		System.out.println("id : " + id);
+		System.out.println("pw : ");
 		return mv;
 	}
 }
