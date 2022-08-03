@@ -52,4 +52,5 @@
 		})
 	})
 	</script>
+	${user.id} <!-- user.getId()가 호출됨 -->
 </div>

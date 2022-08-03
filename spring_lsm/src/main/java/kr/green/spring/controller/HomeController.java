@@ -1,14 +1,21 @@
-package kr.green.spring;
+package kr.green.spring.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.green.spring.service.MemberService;
+import kr.green.spring.vo.MemberVO;
+
 
 @Controller
 public class HomeController {
+	
+	@Autowired
+	MemberService memberService;
 	
 	/* 접근제한자 public - 고정
 	 * 리턴타입 : ModelAndView - 고정, 단 ajax를 이용한 경우는 제외하고는 기본적으로 ModelAndView
@@ -40,15 +47,12 @@ public class HomeController {
 		System.out.println("취미는 " + hobby + "이고, " + time + "시간씩 합니다.");
 		return mv;
 	}
-	
 	@RequestMapping(value="/", method=RequestMethod.POST)
 	public ModelAndView homePost(ModelAndView mv, String hobby, Integer time) {
 		mv.setViewName("redirect:/");
 		System.out.println("취미는 " + hobby + "이고, " + time + "시간씩 합니다.");
 		return mv;
 	}
-	
-	
 	@RequestMapping(value="/hobby/{hobby1}/{time1}")
 	public ModelAndView hobby(ModelAndView mv,
 		@PathVariable("hobby1") String hobby,
@@ -64,12 +68,12 @@ public class HomeController {
 		mv.addObject("setHeader", "타일즈");
 		return mv;
 	}
-	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public ModelAndView loginPost(ModelAndView mv, String id, String pw) {
-		mv.setViewName("redirect:/");
-		System.out.println("id : " + id);
-		System.out.println("pw : ");
+	public ModelAndView loginPost(ModelAndView mv, MemberVO member) {
+		mv.setViewName("redirect:/login");
+		System.out.println(member);
+		String email = memberService.getEmail(member.getMe_id());
+		System.out.println("이메일 : " + email);
 		return mv;
 	}
 }
