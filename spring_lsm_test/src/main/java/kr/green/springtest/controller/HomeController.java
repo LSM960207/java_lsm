@@ -15,13 +15,11 @@ public class HomeController {
 	 @Autowired
    MemberService memberService;
 	
-	@RequestMapping(value="/")
+	 @RequestMapping(value="/")
 		public ModelAndView openTilesView(ModelAndView mv){
-    mv.setViewName("/main/home");
-    mv.addObject("setHeader", "타일즈");
-    System.out.println(memberService.getEmail("qwe"));
-    return mv;
-	}
+	    mv.setViewName("/main/home");
+	    return mv;
+		}
 	
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
 	public ModelAndView signupGet(ModelAndView mv) {
@@ -36,7 +34,23 @@ public class HomeController {
 		}else {
 			mv.setViewName("redirect:/signup");
 		}
+		return mv;		
+	}
+	
+	@RequestMapping(value="/login", method=RequestMethod.GET)
+	public ModelAndView loginGet(ModelAndView mv) {
+		mv.setViewName("/main/login");
 		return mv;
-		
+	}
+	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public ModelAndView loginPost(ModelAndView mv, MemberVO member) {
+		MemberVO user = memberService.login(member);
+		if(user != null)
+			mv.setViewName("redirect:/");
+		else 
+			mv.setViewName("redirect:/login");
+		mv.addObject("user", user);
+		return mv;
 	}
 }
