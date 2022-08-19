@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.spring.dao.BoardDAO;
 import kr.green.spring.pagination.Criteria;
+import kr.green.spring.utils.UploadFileUtils;
 import kr.green.spring.vo.BoardVO;
 import kr.green.spring.vo.CommentVO;
+import kr.green.spring.vo.FileVO;
 import kr.green.spring.vo.LikesVO;
 import kr.green.spring.vo.MemberVO;
 
@@ -17,9 +20,11 @@ public class BoardServiceImp implements BoardService{
 	
 	@Autowired
 	BoardDAO boardDao;
+	
+	private String uploadPath = "D:\\git\\uploadfiles";
 
 	@Override
-	public void insertBoard(BoardVO board, MemberVO user) {
+	public void insertBoard(BoardVO board, MemberVO user, MultipartFile[] files) {
 		if(board == null || board.getBd_title() == null || board.getBd_content() == null)
 			return;
 		//제목에 공백만 있는 경우 => trim()으로 공백을 없애줌. 가운데에 있는 공백들은 안 없애줌
@@ -31,6 +36,7 @@ public class BoardServiceImp implements BoardService{
 		//로그인 안한 경우
 		if(user == null || user.getMe_id() == null)
 			return;
+		
 		//답글인 경우 순서를 업데이트
 		if(board.getBd_ori_num() != 0)
 			boardDao.updateBoardOrder(board);
@@ -39,6 +45,25 @@ public class BoardServiceImp implements BoardService{
 		board.setBd_me_id(user.getMe_id());
 		boardDao.insertBoard(board);
 		
+		//첨부파일 작업
+		if(files == null || files.length == 0)
+			return;
+		for(MultipartFile file : files) {
+			if(file == null)
+				continue;
+			
+			String fi_ori_name = file.getOriginalFilename();
+			if(fi_ori_name.length() == 0)
+				continue;
+			
+			try {
+				String fi_name = UploadFileUtils.uploadFile(uploadPath, fi_ori_name, file.getBytes());	
+				FileVO fileVo = new FileVO(fi_name, fi_ori_name, board.getBd_num());
+				System.out.println(fileVo);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
