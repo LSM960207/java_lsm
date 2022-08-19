@@ -23,6 +23,7 @@
 			<div class="form-group">
   			<input type="text" class="form-control" name="bd_views" value="${board.bd_views}" readonly>
 			</div>
+			
 			<div class="form-group">
 				<button type="button" class="btn btn<c:if test="${likes.li_state != 1}">-outline</c:if>-primary up btn-likes">추천</button>
 				<button type="button" class="btn btn<c:if test="${likes.li_state != -1}">-outline</c:if>-danger down btn-likes">비추천</button>
@@ -30,7 +31,15 @@
 			<div class="form-group">
   			<textarea class="form-control" rows="10" name="bd_content" readonly>${board.bd_content}</textarea>
 			</div>
-			
+			<div class="form-group">
+				<label>첨부파일</label>
+				<c:if test="${fileList.size() == 0}">없음</c:if>
+				<c:if test="${fileList.size() != 0}">
+					<c:forEach items="${fileList}" var="file">
+						<a href="<c:url value="/file${file.fi_name}"></c:url>" class="form-control" download>${file.fi_ori_name}</a>
+					</c:forEach>
+				</c:if>
+			</div>
 			<div class="list-comment">
 				<div class="item-comment">
 					<div class="co_me_id">작성자</div>
