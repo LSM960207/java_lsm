@@ -122,6 +122,8 @@
   <select id="selectFile" resultType="kr.green.spring.vo.FileVO">
   	select * from file where fi_num = #{fi_num}
   </select>
+  <select id="selectMemberByEmailBirth" resultType="kr.green.spring.vo.MemberVO">
+  </select>
 </mapper>
 
 
