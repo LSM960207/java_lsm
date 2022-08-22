@@ -123,14 +123,16 @@ $(function(){
 	     contentType:"application/json; charset=UTF-8",
 	     success : function(data){
 	    	 $('.alert').remove();
-	    	 if(data.res){
-	    		 alert('새 비밀번호를 전송했습니다. 메일을 확인하세요');
-	    	 }else{
-	    		 alert('입력한 정보가 잘못됐거나 없는 회원정보입니다.');
-	    	 }
-	    	 if(data.exception){
-	    		 alert('서버 문제입니다. 전화로 문의해주세요.')
-	    	 }
+	    	 setTimeout(()=> {
+	    	 	if(data.res){
+	    		 	alert('새 비밀번호를 전송했습니다. 메일을 확인하세요');
+	    	 	}else{
+	    		 	alert('입력한 정보가 잘못됐거나 없는 회원정보입니다.');
+	    	 	}
+	    	 	if(data.exception){
+	    			alert('서버 문제입니다. 전화로 문의해주세요.')
+	    	 	}
+	    	 },100);
 	    }
 	   });
 	})
