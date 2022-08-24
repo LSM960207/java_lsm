@@ -56,25 +56,28 @@
 			<hr>
 			<div class="list-comment">
 				<div class="media border p-3">
-    			<div class="media-body">
-      		<h4>John Doe <small><i>February 19, 2016</i></small></h4>
-      		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>      
-    			</div>
-    			<div class="btn-box">
-    				<button class="btn btn-outline-success" style="display: block">수정</button>
-    				<button class="btn btn-outline-danger mt-1" style="display: block">삭제</button>
-    			</div>
-  			</div>
+			    <div class="media-body">
+			      <h4>John Doe <small><i>February 19, 2016</i></small></h4>
+			      <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p> -->
+			      <div class="form-group">      
+			      	<textarea class="form-control" rows="" cols=""></textarea>
+			      </div>
+			    </div>
+			    <div class="btn-box">
+			    	<button class="btn btn-outline-success" style="display: block">수정</button>
+			    	<button class="btn btn-outline-danger  mt-1" style="display: block">삭제</button>
+			    </div>
+			  </div>
 			</div>
 			<ul class="pagination-comment pagination justify-content-center mt-3">
-    		<li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-    		<li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
-    		<li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-    		<li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
-  		</ul>
+		    <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
+		    <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
+		    <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+		    <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
+		  </ul>
 			<div>
 				<div class="form-group">
-					<textarea class="form-control" fows="5" name="co_content"></textarea>
+				  <textarea class="form-control" rows="5" name="co_content"></textarea>
 				</div>
 				<button class="btn btn-outline-success col-12 btn-co-insert">댓글 등록</button>
 			</div>
@@ -87,7 +90,6 @@
 		</c:if>
 	</div>
 	<script type="text/javascript">
-	//게시글 추천, 비추천
 		$(function(){
 			$('.btn-up, .btn-down').click(function(){
 				let id = '${user.me_id}';
@@ -138,8 +140,8 @@
 				//아이디 체크
 				if(co_me_id == ''){
 					//로그인 화면으로 이동할지 물어봄
-					if(confirm('로그인이 필요한 서비스입니다. 로그인화면으로 이동하시겠습니까?')){
-						//로그인 화면으로 이동
+					if(confirm('로그인이 필요한 서비스입니다.\n로그인화면으로 이동하겠습니까?')){
+						//로그인화면으로 이동
 						location.href = '<%=request.getContextPath()%>/login'
 						return;
 					}else{
@@ -166,16 +168,15 @@
 			getCommentList(cri);
 		})
 		
-	
 		//전역변수들
 		let cri = {
-			page : 1,
-			perPageNum : 5
+				page : 1,
+				perPageNum : 5
 		}
-	
+		
 		//함수들
 		function getCommentList(cri){
-			if(cri == undefined || cri == null || typeof cri != 'object'){
+			if(cri == undefined ||cri == null || typeof cri !='object'){
 				cri = {};
 			}
 			if(isNaN(cri.page))
@@ -185,64 +186,11 @@
 		
 		function commentInsertSuccess(data){
 			if(data.res)
-				alert('댓글 등록이 완료되었습니다.')
+				alert('댓글 등록이 완료됐습니다.')
 			else
 				alert('댓글 등록에 실패했습니다.')
 			getCommentList(cri);
 			$('[name=co_content]').val('');
-		}
-		function commentListSuccess(data){
-			let list = data.list;
-			let str = '';
-			//반복문을 이용하여 댓글들 구성
-			for(co of list){
-				str += '<div class="media border p-3">';
-				str += 	'<div class="media-body">';
-				str += 		'<h4>'+co.co_me_id+'<small><i> '+co.co_reg_date_str+'</i></small></h4>';
-				str += 		'<p>'+co.co_content+'</p>';     
-				str += 	'</div>';
-				str +=	'<div class="btn-box">';
-				if(co.co_me_id == '${user.me_id}'){
-					str +=		'<button class="btn btn-outline-success btn-co-update" style="display: block">수정</button>';
-					str +=		'<button data-target="'+co.co_num+'" class="btn btn-outline-danger btn-co-delete mt-1" style="display: block">삭제</button>';
-				}
-				str +=		'</div>';
-				str += '</div>';
-			}
-			//댓글들을 화면에 출력
-			$('.list-comment').html(str);
-			$('.btn-co-delete').click(function(){
-				let co_num = $(this).data('target');
-				let comment = {
-						co_num : co_num
-				}
-				ajaxPost(false, comment, '/ajax/comment/delete', commentDeleteSuccess)
-			})
-			
-			let pm = data.pm;
-			let pmStr = '';
-			//댓글 페이지네이션 구성
-			if(pm.prev)
-				pmStr += '<li class="page-item" data-page="'+(pm.startPage-1)+'"><a class="page-link" href="javascript:void(0);">이전</a></li>';
-			for(i = pm.startPage; i <= pm.endPage; i++){
-				if(i == pm.cri.page)
-					pmStr += '<li class="page-item active" data-page="'+i+'"><a class="page-link" href="javascript:void(0);">'+i+'</a></li>';
-				else
-				pmStr += '<li class="page-item" data-page="'+i+'"><a class="page-link" href="javascript:void(0);">'+i+'</a></li>';
-			}
-			if(pm.next)
-				pmStr += '<li class="page-item" data-page="'+(pm.endPage+1)+'"><a class="page-link" href="javascript:void(0);">다음</a></li>';
-			
-			//댓글 페이지네이션 화면에 출력
-			$('.pagination-comment').html(pmStr);
-			//페이지네이션에서 페이지 이벤트 등록
-			$('.pagination-comment .page-item').click(function(){
-				cri.page = $(this).data('page');
-				getCommentList(cri);
-			})
-		}
-		function commentUpdateSuccess(data){
-			console.log(data);
 		}
 		function commentDeleteSuccess(data){
 			if(data.res){
@@ -252,19 +200,115 @@
 			}
 			getCommentList(cri);
 		}
+		function commentUpdateSuccess(data){
+			if(data.res){
+				alert('댓글 수정 완료됐습니다.');
+			}else{
+				alert('댓글 수정에 실패했습니다.');
+			}
+			getCommentList(cri);
+		}
+		function commentListSuccess(data){
+			let list = data.list;
+			let str = '';
+			//반복문을 이용하여 댓글들 구성
+			for(co of list){
+				str += '<div class="media border p-3">';
+			  str +=   '<div class="media-body">';
+			  str +=     '<h4>'+co.co_me_id+'<small><i> '+co.co_reg_date_str+'</i></small></h4>';
+			  str +=     '<p>'+co.co_content+'</p>';      
+			  str +=   '</div>';
+			  str +=   '<div class="btn-box">'
+			  if(co.co_me_id == '${user.me_id}'){
+					str +=	 	'<button data-target="'+co.co_num+'" class="btn btn-outline-success btn-co-update" style="display: block">수정</button>';
+					str +=   	'<button data-target="'+co.co_num+'" class="btn btn-outline-danger btn-co-delete mt-1" style="display: block">삭제</button>';
+			  }
+				str +=    '</div>';
+			  str += '</div>';;
+			}
+			//댓글들을 화면에 출력
+			$('.list-comment').html(str);
+			//댓글 삭제버튼 이벤트 등록
+			$('.btn-co-delete').click(function(){
+				let co_num = $(this).data('target');
+				let comment = {
+						co_num : co_num
+				}
+				ajaxPost(false, comment, '/ajax/comment/delete', commentDeleteSuccess)
+			});
+			//댓글 수정버튼 클릭 이벤트 등록
+			$('.btn-co-update').click(function(){
+				$('.btn-co-cancel').click();
+				let contentEl = $(this).parent().siblings('.media-body').children('p');
+				contentEl.hide();
+				let content = contentEl.text();
+				let str = '';
+				str += '<div class="form-group box-content">'      
+				str +=  	'<textarea class="form-control" rows="3">'+content+'</textarea>'
+				str += '</div>'
+				contentEl.after(str);
+				$(this).parent().hide();
+				let co_num = $(this).data('target');
+				str = '';
+				str += '<div class="btn-box2">'
+				str +=	 	'<button data-target="'+co_num+'" class="btn btn-outline-success btn-co-complete" style="display: block">등록</button>';
+				str +=   	'<button class="btn btn-outline-danger btn-co-cancel mt-1" style="display: block">취소</button>';
+				str += '</div>'
+				$(this).parent().after(str);
+				//등록버튼 클릭
+				$('.btn-co-complete').click(function(){
+					let co_num = $(this).data('target');
+					let co_content = $(this).parent().siblings('.media-body').find('textarea').val();
+					let obj = {
+							co_num : co_num,
+							co_content : co_content
+					}
+					ajaxPost(false, obj, '/ajax/comment/update', commentUpdateSuccess)
+				})
+				//취소버튼 클릭
+				$('.btn-co-cancel').click(function(){
+					$(this).parent().siblings('.media-body').find('p').show();
+					$(this).parent().siblings('.media-body').find('.box-content').remove();
+					$(this).parent().siblings('.btn-box').show();
+					$(this).parent().remove();
+				})
+			})
+			
+			let pm = data.pm;
+			let pmStr = '';
+			//댓글 페이지네이션 구성
+			if(pm.prev)
+				pmStr +=	'<li class="page-item" data-page="'+(pm.startPage-1)+'"><a class="page-link" href="javascript:void(0);">이전</a></li>';
+			for(i = pm.startPage; i<= pm.endPage; i++){
+				if(i == pm.cri.page)
+					pmStr +=	'<li class="page-item active" data-page="'+i+'"><a class="page-link" href="javascript:void(0);">'+i+'</a></li>';
+				else
+		    	pmStr +=	'<li class="page-item" data-page="'+i+'"><a class="page-link" href="javascript:void(0);">'+i+'</a></li>';
+			}
+			if(pm.next)
+		  	pmStr += 	'<li class="page-item" data-page="'+(pm.endPage+1)+'"><a class="page-link" href="javascript:void(0);">다음</a></li>';
+		  //댓글 페이지네이션 화면에 출력
+		  $('.pagination-comment').html(pmStr);
+		  //페이지네이션에서 페이지 이벤트 등록
+		  $('.pagination-comment .page-item').click(function(){
+			  cri.page = $(this).data('page');
+			  getCommentList(cri);
+		  })
+		}
+		
 		
 		function ajaxPost(async, dataObj, url, success){
 			$.ajax({
-			   async:async,
-			   type:'POST',
-			   data:JSON.stringify(dataObj),
-			   url:"<%=request.getContextPath()%>"+url,
-			   dataType:"json",
-			   contentType:"application/json; charset=UTF-8",
-			   success : function(data){
-			   		success(data);
-			   }
-	  	});
+	      async:async,
+	      type:'POST',
+	      data:JSON.stringify(dataObj),
+	      url:"<%=request.getContextPath()%>"+url,
+	      dataType:"json",
+	      contentType:"application/json; charset=UTF-8",
+	      success : function(data){
+	    	  success(data);
+	      }
+		  });
 		}
 	</script>
 </body>
