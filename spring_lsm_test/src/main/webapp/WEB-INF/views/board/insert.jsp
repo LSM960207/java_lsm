@@ -8,19 +8,23 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="container">
+	<form class="container" method="post" enctype="multipart/form-data">
 	<h1>게시글 등록</h1>
-		<form method="post">  
- 			<div class="form-group">
-  			<label for="bd_title">제목:</label>
-  			<input type="text" class="form-control" name="bd_title" id="bd_title">
-			</div>
-			<div class="form-group">
- 		 		<label for="bd_content">내용:</label>
- 		 		<textarea class="form-control" rows="10" name="bd_content" id="bd_content"></textarea>
-			</div>
-			<button class="btn btn-outline-success col-12 mb-5">게시글 등록</button>
-		</form>
-	</div>
+ 		<div class="form-group">
+  		<label for="bd_title">제목:</label>
+  		<input type="text" class="form-control" name="bd_title" id="bd_title">
+		</div>
+		<div class="form-group">
+ 		 	<label for="bd_content">내용:</label>
+ 		 	<textarea class="form-control" rows="10" name="bd_content" id="bd_content"></textarea>
+		</div>
+		<div class="form-group">
+ 		 	<label>첨부파일(최대 3개) : </label>
+ 		 	<input type="file" class="form-control" name="files">
+ 		 	<input type="file" class="form-control" name="files">
+ 		 	<input type="file" class="form-control" name="files">
+		</div>
+		<button class="btn btn-outline-success col-12 mb-5">게시글 등록</button>
+	</form>
 </body>
 </html>
