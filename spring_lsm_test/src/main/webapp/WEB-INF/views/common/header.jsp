@@ -19,12 +19,15 @@
 		   </c:if>
 		   <c:if test="${user != null }">
 		   	<li class="nav-item">
+		     <a class="nav-link" href="<c:url value="/member/update"></c:url>">회원 정보 수정</a>
+		   	</li>
+		   	<li class="nav-item">
 		     <a class="nav-link" href="<c:url value="/logout"></c:url>">로그아웃</a>
 		   	</li>
 		   </c:if>
 		   	<li class="nav-item">
 		     <a class="nav-link" href="<c:url value="/board/list"></c:url>">게시글</a>
-		   	</li>  
+		   	</li>
 	   </ul>
 		</div> 
 	</div> 
