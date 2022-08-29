@@ -243,4 +243,6 @@ public class BoardServiceImp implements BoardService{
 		UploadFileUtils.deleteFile(uploadPath, tmp.getFi_name());
 		boardDao.deleteFile(tmp.getFi_num());
 	}
+	
+	
 }

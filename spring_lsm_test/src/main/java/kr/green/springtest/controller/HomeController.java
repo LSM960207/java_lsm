@@ -84,7 +84,8 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/find", method=RequestMethod.GET)
-	public ModelAndView findGet(ModelAndView mv) {
+	public ModelAndView findGet(ModelAndView mv, String type) {
+		mv.addObject("type", type);
 		mv.setViewName("/main/find");
 		return mv;
 	}
@@ -93,9 +94,17 @@ public class HomeController {
 	@ResponseBody
 	public Map<Object, Object> findId(@RequestBody MemberVO member){
 		HashMap<Object, Object> map = new HashMap<Object, Object>();
-		System.out.println(member);
 		String id = memberService.getId(member);
 		map.put("id", id);
+		return map;
+	}
+	
+	@RequestMapping(value ="/ajax/find/pw")
+	@ResponseBody
+	public Map<Object, Object> findPw(@RequestBody MemberVO member){
+		HashMap<Object, Object> map = new HashMap<Object, Object>();
+		boolean res = memberService.findPw(member);
+		map.put("res", res);
 		return map;
 	}
 }
