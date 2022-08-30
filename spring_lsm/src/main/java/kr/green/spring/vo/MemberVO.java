@@ -16,7 +16,7 @@ public class MemberVO {
 	private Date me_birth;
 	private String me_email;
 	private int me_authority;
-
+	private boolean autoLogin;	//DB에 필요없는 항목이라 me_가 안붙음
 
 	public String getMe_birth_str() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
