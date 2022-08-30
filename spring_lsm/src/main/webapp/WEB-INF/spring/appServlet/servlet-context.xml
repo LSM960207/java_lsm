@@ -17,6 +17,8 @@
 	<resources mapping="/resources/**" location="/resources/" />
 	<!-- file:/// ==> 프로젝트 외부 폴더에서 찾음 -->
 	<resources mapping="/file/**" location="file:///D:/git/uploadfiles/" />
+	<!-- 써머노트 전용 이미지 링크 -->
+	<resources mapping="/simg/**" location="file:///D:/git/img/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
