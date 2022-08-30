@@ -44,12 +44,32 @@
 			$(this).parent().remove();
 		})
 		
-		//써머노트
+		//써머노트  -> 이렇게 하지않으면 이미지 용량이 커져서 데이터베이스 용량 문제 & 로딩 오래 걸림
 		$('#sn').summernote({
-			   placeholder: 'Hello Bootstrap 4',
-			   tabsize: 2,
-			   height: 400
-		});
+			  placeholder: 'Hello Bootstrap 4',
+			  tabsize: 2,
+			  height: 400,
+			  callbacks: {
+				  onImageUpload: function(files) {
+					  console.log(files);
+				  	let data = new FormData();
+				  	data.append('file', files[0]);
+				  	let thisObj = $(this)
+				  	$.ajax({
+				  		data : data,
+				  		type : 'POST',
+				  		url : '<%=request.getContextPath()%>/board/img/upload',
+				  		contentType : false,
+				  		processData : false,
+				  		dataType : "json",
+				  		success : function(data){
+				  			let url = '<%=request.getContextPath()%>/simg' + data.url;
+				  			thisObj.summernote('insertImage', url);
+				  		}
+				  	})
+				  }
+				}
+			});
 	})
 	</script>
 </body>

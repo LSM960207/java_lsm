@@ -29,6 +29,7 @@
 		</form>
 	</div>
 <script>
+//써머노트 -> 이렇게 하지않으면 이미지 용량이 커져서 데이터베이스 용량문제 & 로딩 오래 걸림
 $('#sn').summernote({
   placeholder: 'Hello Bootstrap 4',
   tabsize: 2,
