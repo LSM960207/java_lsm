@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 </head>
 <body>
 	<form class="container" method="post" enctype="multipart/form-data">
@@ -26,5 +28,37 @@
 		</div>
 		<button class="btn btn-outline-success col-12 mb-5">게시글 등록</button>
 	</form>
+<script type="text/javascript">
+$(function(){
+	$('#bd_content').summernote({
+	  placeholder: 'Hello Bootstrap 4',
+	  tabsize: 2,
+	  height: 400,
+	  callbacks: {
+	    onImageUpload: function(files) {
+	    	if(files == null || files.length == 0)
+	    		return;
+	    	for(file of files){
+	    	let data = new FormData();
+				data.append('file', file);
+				let thisObj = $(this)
+				$.ajax({
+					data : data,
+					type : 'POST',
+					url : '<%=request.getContextPath()%>/board/img/upload',
+					contentType : false,
+					processData : false,
+					dataType: "json",
+					success : function(data){
+						let url = '<%=request.getContextPath()%>/simg' + data.url;
+						thisObj.summernote('insertImage', url);
+					}
+				});
+	    }
+	   }
+	 }
+	});
+})
+</script>
 </body>
 </html>

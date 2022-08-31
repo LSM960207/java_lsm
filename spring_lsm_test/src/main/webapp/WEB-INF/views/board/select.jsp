@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://kit.fontawesome.com/b1e3c8f87d.js" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <style>
 .btn-up, .btn-down{
 	border : 1px solid black; color: red
@@ -47,7 +49,9 @@
 			</div>
 			<div class="form-group">
 			  <label for="">내용:</label>
-			  <textarea class="form-control" rows="10" readonly>${board.bd_content}</textarea>
+			  <div class="form-control" style="height:auto; min-height:400px">
+			  	${board.bd_content}
+			  </div>
 			</div>
 			<div class="form-group">
 				<label for="">첨부파일</label>
@@ -373,6 +377,12 @@
 			  getCommentList(cri);
 		  })
 		}
+		
+		$('#bd_content').summernote({
+		 	placeholder: 'Hello Bootstrap 4',
+		 	tabsize: 2,
+		 	height: 400
+		});
 		
 		
 		function ajaxPost(async, dataObj, url, success){
