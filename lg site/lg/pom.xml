@@ -225,6 +225,13 @@
     <version>4.1.0.RELEASE</version>
 	</dependency>
 	
+	<!-- 파일 업로드기능 추가 -->
+	<dependency>
+    <groupId>commons-fileupload</groupId>
+    <artifactId>commons-fileupload</artifactId>
+    <version>1.3.2</version>
+	</dependency>
+	
 	</dependencies>
     <build>
         <plugins>
