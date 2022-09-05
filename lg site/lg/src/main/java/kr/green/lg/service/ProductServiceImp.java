@@ -1,7 +1,6 @@
 package kr.green.lg.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.lg.dao.ProductDAO;
+import kr.green.lg.pagination.Criteria;
 import kr.green.lg.utils.UploadFileUtils;
 import kr.green.lg.vo.CategoryVO;
 import kr.green.lg.vo.ProductVO;
@@ -64,5 +64,12 @@ public class ProductServiceImp implements ProductService {
 		} 
 		productDao.insertProduct(product);
 		productDao.updateCategory(category);
+	}
+
+	@Override
+	public ArrayList<ProductVO> selectProductList(Criteria cri) {
+		if(cri == null)
+			cri = new Criteria();
+		return productDao.selectProductList(cri);
 	}
 }
