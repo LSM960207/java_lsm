@@ -46,7 +46,7 @@ function getProductList(cri) {
 		let str = '';
 		let cp = '<%=request.getContextPath()%>';
 		for(p of data.list){
-			str += '<a class="product-box clearfix" href="'+cp+'/product/select?pr_code='+p.pr_code+'>">';
+			str += '<a class="product-box clearfix" href="'+cp+'/product/select?pr_code='+p.pr_code+'">';
 	   	str += 	'<div class="float-left">';
 	   	str +=		'<img src="'+cp+p.pr_thumb_url+'" width="200" height="200">';
 	   	str +=	'</div>';
