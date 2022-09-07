@@ -80,8 +80,8 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public boolean updateBoard(BoardVO board, MemberVO user) {
-		if(board == null ||
-				board.getBd_title() == null ||
+		if(board == null || 
+				board.getBd_title() == null || 
 				board.getBd_title().length() == 0 ||
 				board.getBd_content() == null)
 			return false;
@@ -89,7 +89,7 @@ public class BoardServiceImp implements BoardService {
 		if(dbBoard == null) 
 			return false;
 
-		if(user.getMe_authority() != 10 && board.getBd_me_email().equals(user.getMe_email()))
+		if(user.getMe_authority() != 10 && !board.getBd_me_email().equals(user.getMe_email()))
 			return false;
 		dbBoard.setBd_title(board.getBd_title());
 		dbBoard.setBd_content(board.getBd_content());

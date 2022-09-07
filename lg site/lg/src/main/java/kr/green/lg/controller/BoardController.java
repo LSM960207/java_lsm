@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.lg.service.BoardService;
 import kr.green.lg.service.MessageService;
+import kr.green.lg.vo.BoardVO;
 import kr.green.lg.vo.MemberVO;
 
 @Controller
@@ -33,4 +34,13 @@ public class BoardController {
 			messageService.message(response, "게시글 삭제에 실패했습니다.", redirectUrl);
 		return mv;
 	}
+	
+	@RequestMapping(value = "/board/select", method = RequestMethod.POST)
+	public ModelAndView boardDeletePost(ModelAndView mv, Integer bd_num) {
+		BoardVO board = boardService.getBoard(bd_num);
+		mv.addObject("bo", board);
+		mv.setViewName("/board/select");
+		return mv;
+	}
+
 }
