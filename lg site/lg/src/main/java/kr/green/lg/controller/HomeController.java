@@ -1,6 +1,5 @@
 package kr.green.lg.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.lg.service.MemberService;
-import kr.green.lg.service.ProductService;
-import kr.green.lg.vo.CategoryVO;
 import kr.green.lg.vo.MemberVO;
 
 @Controller

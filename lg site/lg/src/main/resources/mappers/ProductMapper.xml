@@ -3,51 +3,51 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.lg.dao.ProductDAO">
-  <insert id="insertCategory">
-  	insert into category(ca_name, ca_code) values(#{ca_name}, #{ca_code})
-  </insert>
-  <select id="selectCategoryList" resultType="kr.green.lg.vo.CategoryVO">
-  	select * from category
-  </select>
-  <insert id="insertProduct">
-  	insert into product(pr_code, pr_thumb, pr_title, pr_content, pr_spec, pr_price, pr_ca_name)
-  	values(#{pr_code}, #{pr_thumb}, #{pr_title}, #{pr_content}, #{pr_spec}, #{pr_price}, #{pr_ca_name});
-  </insert>
-  <select id="selectCategoryByCode" resultType="kr.green.lg.vo.CategoryVO">
-  	select * from category where ca_code = #{ca_code}
-  </select>
-  <update id="updateCategory">
-  	update category set ca_count = ca_count +1 where ca_name = #{ca_name}
-  </update>
-  <select id="selectProductList" resultType="kr.green.lg.vo.ProductVO">
-  	select * from product
-  	 where (pr_title like concat('%',#{search},'%') or pr_code like concat('%',#{search},'%'))
-  	 	and pr_ca_name like concat('%',#{pr_ca_name},'%')
-  	 order by pr_ca_name
-  	 limit #{pageStart}, #{perPageNum}
-  </select>
-  <select id="selectProductTotalCount" resultType="int">
-  	select count(*) from product
-  	 where (pr_title like concat('%',#{search},'%') or pr_code like concat('%',#{search},'%'))
-  	 	and pr_ca_name like concat('%',#{pr_ca_name},'%')
-  </select>
-  <select id="selectProduct" resultType="kr.green.lg.vo.ProductVO">
-  	select * from product where pr_code = #{pr_code}
-  </select>
-  <delete id="deleteProduct">
-  	delete from product where pr_code = #{pr_code}
-  </delete>
-  <update id="updateProduct">
-  	update product
-  		set
-  			pr_thumb = #{pr_thumb},
-  			pr_title = #{pr_title},
-  			pr_content = #{pr_content},
-  			pr_spec = #{pr_spec},
-  			pr_price = #{pr_price}
-  		where pr_code = #{pr_code}
-  </update>
-  <select id="selectLikes" resultType="kr.green.lg.vo.LikesVO">
+	<insert id="insertCategory">
+		insert into category(ca_name, ca_code) values(#{ca_name}, #{ca_code})
+	</insert>
+	<select id="selectCategoryList" resultType="kr.green.lg.vo.CategoryVO">
+		select * from category
+	</select>
+	<insert id="insertProduct">
+		insert into product(pr_code, pr_thumb, pr_title, pr_content, pr_spec, pr_price, pr_ca_name)
+		values(#{pr_code},#{pr_thumb},#{pr_title},#{pr_content},#{pr_spec},#{pr_price},#{pr_ca_name})
+	</insert>
+	<select id="selectCategoryByCa_code" resultType="kr.green.lg.vo.CategoryVO">
+		select * from category where ca_code = #{ca_code}
+	</select>
+	<update id="updateCategory">
+		update category set ca_count = ca_count+1 where ca_name = #{ca_name}
+	</update>
+	<select id="selectProductList" resultType="kr.green.lg.vo.ProductVO">
+		select * from product 
+		where (pr_title like concat('%',#{search},'%') or pr_code like concat('%',#{search},'%'))
+			and pr_ca_name like concat('%',#{pr_ca_name},'%')
+		order by pr_ca_name
+		limit #{pageStart}, #{perPageNum} 
+	</select>
+	<select id="selectProductTotalCount" resultType="int">
+		select count(*) from product 
+		where (pr_title like concat('%',#{search},'%') or pr_code like concat('%',#{search},'%'))
+			and pr_ca_name like concat('%',#{pr_ca_name},'%')
+	</select>
+	<select id="selectProduct" resultType="kr.green.lg.vo.ProductVO">
+		select * from product where pr_code = #{pr_code}
+	</select>
+	<delete id="deleteProduct">
+		delete from product where pr_code = #{pr_code}
+	</delete>
+	<update id="updateProduct">
+		update product
+			set
+				pr_thumb = #{pr_thumb},
+				pr_title = #{pr_title},
+				pr_content = #{pr_content},
+				pr_spec = #{pr_spec},
+				pr_price = #{pr_price}
+			where pr_code= #{pr_code}
+	</update>
+	<select id="selectLikes" resultType="kr.green.lg.vo.LikesVO">
 		select * from likes 
 			where li_pr_code = #{pr_code} and li_me_email = #{me_email}
 	</select>
@@ -58,10 +58,10 @@
 		delete from likes where li_pr_code = #{li_pr_code} and li_me_email = #{li_me_email}
 	</delete>
 	<select id="selectProductListByLikes" resultType="kr.green.lg.vo.ProductVO">
-		select * from product
-		 join likes
-		  on pr_code = li_pr_code
-		 where
-		  li_me_email = #{me_email}
+		select * from product 
+			join likes 
+				on pr_code = li_pr_code 
+			where
+				li_me_email = #{me_email}
 	</select>
 </mapper>

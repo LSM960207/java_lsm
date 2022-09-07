@@ -15,7 +15,7 @@ public class MemberVO {
 	private String me_addr_detail;
 	private String me_s_id;
 	private String me_code;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date me_birth;
 	private Date me_s_limit;
 	private int me_pos;

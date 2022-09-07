@@ -25,7 +25,7 @@ import kr.green.lg.vo.ProductVO;
 
 @Controller
 public class AdminController {
-	
+
 	@Autowired
 	ProductService productService;
 	@Autowired
@@ -38,15 +38,13 @@ public class AdminController {
 		mv.setViewName("/admin/home");
 		return mv;
 	}
-	
 	@RequestMapping(value = "/admin/category", method = RequestMethod.GET)
 	public ModelAndView category(ModelAndView mv) {
 		ArrayList<CategoryVO> list = productService.getCategoryList();
-		mv.addObject("list", list);
+		mv.addObject("list",list);
 		mv.setViewName("/admin/category");
 		return mv;
 	}
-	
 	@RequestMapping(value = "/admin/category", method = RequestMethod.POST)
 	public ModelAndView categoryPost(ModelAndView mv, CategoryVO category,
 			HttpServletResponse response) throws IOException {
@@ -57,7 +55,6 @@ public class AdminController {
 		mv.setViewName("redirect:/admin/category");
 		return mv;
 	}
-	
 	@RequestMapping(value = "/admin/product/list", method = RequestMethod.GET)
 	public ModelAndView productListGet(ModelAndView mv, Criteria cri) {
 		cri.setPerPageNum(2);
@@ -71,15 +68,13 @@ public class AdminController {
 		mv.setViewName("/admin/productList");
 		return mv;
 	}
-	
 	@RequestMapping(value = "/admin/product/insert", method = RequestMethod.GET)
 	public ModelAndView productInsertGet(ModelAndView mv) {
-		ArrayList<CategoryVO> categoryList = productService.getCategoryList();
-		mv.addObject("list", categoryList);
+		ArrayList<CategoryVO> cartegoryList = productService.getCategoryList();
+		mv.addObject("list", cartegoryList);
 		mv.setViewName("/admin/productInsert");
 		return mv;
 	}
-	
 	@RequestMapping(value = "/admin/product/insert", method = RequestMethod.POST)
 	public ModelAndView productInsertPost(ModelAndView mv, ProductVO product, MultipartFile file,
 			HttpServletResponse response) {
@@ -88,7 +83,6 @@ public class AdminController {
 		mv.setViewName("redirect:/admin/product/list");
 		return mv;
 	}
-	
 	@RequestMapping(value = "/admin/product/delete", method = RequestMethod.POST)
 	public ModelAndView productDeletePost(ModelAndView mv, HttpServletResponse response, String pr_code) {
 		boolean res = productService.deleteProduct(pr_code);
@@ -99,7 +93,6 @@ public class AdminController {
 		mv.setViewName("redirect:/admin/product/list");
 		return mv;
 	}
-	
 	@RequestMapping(value = "/admin/product/update", method = RequestMethod.GET)
 	public ModelAndView productUpdateGet(ModelAndView mv, String pr_code) {
 		ProductVO product = productService.selectProduct(pr_code);
@@ -107,51 +100,46 @@ public class AdminController {
 		mv.setViewName("/admin/productUpdate");
 		return mv;
 	}
-	
 	@RequestMapping(value = "/admin/product/update", method = RequestMethod.POST)
-	public ModelAndView productUpdatePost(ModelAndView mv, ProductVO product, MultipartFile file,
-			HttpServletResponse response) {
+	public ModelAndView productUpdatePost(ModelAndView mv, ProductVO product, MultipartFile file
+			,HttpServletResponse response) {
 		boolean res = productService.updateProduct(product, file);
-		if(res)
+		if(res) 
 			messageService.message(response, "제품을 수정했습니다.", "/lg/admin/product/list");
 		else
 			messageService.message(response, "제품을 수정하지 못했습니다.", "/lg/admin/product/list");
-		mv.addObject("pr", product);
 		mv.setViewName("/admin/productUpdate");
 		return mv;
 	}
-	
 	@RequestMapping(value = "/admin/notice/list", method = RequestMethod.GET)
 	public ModelAndView noticeList(ModelAndView mv, Criteria cri) {
 		cri.setPerPageNum(2);
 		ArrayList<BoardVO> list = boardService.getBoardList(cri, "NOTICE");
 		int totalCount = boardService.getTotalCount(cri, "NOTICE");
 		PageMaker pm = new PageMaker(totalCount, 2, cri);
+		
 		mv.addObject("pm", pm);
 		mv.addObject("list", list);
 		mv.setViewName("/admin/noticeList");
 		return mv;
 	}
-	
 	@RequestMapping(value = "/admin/notice/insert", method = RequestMethod.GET)
 	public ModelAndView noticeInsertGet(ModelAndView mv) {
 		
 		mv.setViewName("/admin/noticeInsert");
 		return mv;
 	}
-	
 	@RequestMapping(value = "/admin/notice/insert", method = RequestMethod.POST)
-	public ModelAndView noticeInsertPost(ModelAndView mv, BoardVO board,
+	public ModelAndView noticeInsertPost(ModelAndView mv, BoardVO board, 
 			HttpServletResponse response, HttpSession session) {
-		MemberVO user = (MemberVO)session.getAttribute("user");
+		MemberVO user= (MemberVO)session.getAttribute("user");
 		boolean res = boardService.insertBoard(board, user, "NOTICE");
 		if(res)
 			messageService.message(response, "공지사항이 등록되었습니다.", "/lg/admin/notice/list");
 		else
-			messageService.message(response, "공지사항이 등록에 실패했습니다.", "/lg/admin/notice/insert");
+			messageService.message(response, "공지사항 등록에 실패했습니다.", "/lg/admin/notice/insert");
 		return mv;
 	}
-	
 	@RequestMapping(value = "/admin/notice/update", method = RequestMethod.GET)
 	public ModelAndView noticeUpdateGet(ModelAndView mv, Integer bd_num) {
 		BoardVO board = boardService.getBoard(bd_num);

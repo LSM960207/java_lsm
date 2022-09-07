@@ -40,7 +40,6 @@ public class BoardController {
 			messageService.message(response, "게시글 삭제에 실패했습니다.", redirectUrl);
 		return mv;
 	}
-	
 	@RequestMapping(value = "/board/select", method = RequestMethod.GET)
 	public ModelAndView boardSelectGet(ModelAndView mv, Integer bd_num) {
 		BoardVO board = boardService.getBoard(bd_num);
@@ -48,7 +47,6 @@ public class BoardController {
 		mv.setViewName("/board/select");
 		return mv;
 	}
-	
 	@RequestMapping(value = "/board/list", method = RequestMethod.GET)
 	public ModelAndView boardListGet(ModelAndView mv, String bd_type, Criteria cri) {
 		ArrayList<BoardVO> list = boardService.getBoardList(cri, bd_type);
@@ -61,18 +59,15 @@ public class BoardController {
 		mv.setViewName("/board/list");
 		return mv;
 	}
-	
 	@RequestMapping(value = "/board/insert", method = RequestMethod.GET)
-	public ModelAndView boardInsertGet(ModelAndView mv, Integer bd_num) {
-
+	public ModelAndView boardInsertGet(ModelAndView mv) {
 		mv.setViewName("/board/insert");
 		return mv;
 	}
-	
 	@RequestMapping(value = "/board/insert", method = RequestMethod.POST)
-	public ModelAndView boardInsertPost(ModelAndView mv, BoardVO board, HttpSession session,
+	public ModelAndView boardSelectGet(ModelAndView mv, BoardVO board, HttpSession session, 
 			MultipartFile []files, HttpServletResponse response) {
-		MemberVO user = (MemberVO)session.getAttribute("user");
+		MemberVO user = (MemberVO) session.getAttribute("user");
 		boolean res = boardService.insertBoard(board, user, files);
 		if(res)
 			messageService.message(response, "게시글을 등록했습니다.", "/lg/product/select?pr_code="+board.getBd_pr_code());

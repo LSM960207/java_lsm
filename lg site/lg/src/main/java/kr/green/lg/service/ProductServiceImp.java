@@ -22,11 +22,11 @@ public class ProductServiceImp implements ProductService {
 	ProductDAO productDao;
 	
 	String productThumbnailUploadPath = "D:\\git\\product";
-
+	
 	@Override
 	public int insertCategory(CategoryVO category) {
-		if(category == null ||
-				category.getCa_name() == null ||
+		if(category == null || 
+				category.getCa_name()==null || 
 				category.getCa_name().length() == 0 ||
 				category.getCa_code() == null ||
 				category.getCa_code().length() == 0)
@@ -52,18 +52,18 @@ public class ProductServiceImp implements ProductService {
 		if(product == null || file == null || file.getOriginalFilename().length() == 0)
 			return;
 		
-		String prefix = product.getPr_ca_name();	//COM001
-		CategoryVO category = productDao.selectCategoryByCode(prefix.substring(0, 3));
+		String prefix = product.getPr_ca_name();//COM001
+		CategoryVO category = productDao.selectCategoryByCa_code(prefix.substring(0,3));
 		try {
 			product.setPr_ca_name(category.getCa_name());
-			String dir = product.getPr_ca_name();	//COM
+			String dir = product.getPr_ca_name();//COM
 			
-			String str = UploadFileUtils.uploadFile(productThumbnailUploadPath, File.separator + dir, prefix, file.getOriginalFilename(), file.getBytes());
-			product.setPr_thumb("/" + dir + str);
-		}catch (Exception e) {
+			String str = UploadFileUtils.uploadFile(productThumbnailUploadPath,File.separator + dir, prefix, file.getOriginalFilename(), file.getBytes());
+			product.setPr_thumb("/" +dir+ str);
+		} catch (Exception e) {
 			e.printStackTrace();
 			return;
-		} 
+		}
 		productDao.insertProduct(product);
 		productDao.updateCategory(category);
 	}
@@ -93,7 +93,7 @@ public class ProductServiceImp implements ProductService {
 	public boolean deleteProduct(String pr_code) {
 		if(pr_code == null || pr_code.length() != 6)
 			return false;
-		ProductVO product = productDao.selectProduct(pr_code);
+		ProductVO product= productDao.selectProduct(pr_code);
 		if(product == null)
 			return false;
 		UploadFileUtils.deleteFile(productThumbnailUploadPath, product.getPr_thumb());
@@ -114,13 +114,13 @@ public class ProductServiceImp implements ProductService {
 		}else {
 			//기존 썸네일 서버에서 삭제
 			UploadFileUtils.deleteFile(productThumbnailUploadPath, dbProduct.getPr_thumb());
-			//새 썸네일을 서버에 업로드 후 vo에 추가
+			//새 썸네일 서버에 업로드 후 vo에 추가
 			String prefix = product.getPr_code();
 			try {
-				String dir = product.getPr_ca_name();	//COM			
-				String str = UploadFileUtils.uploadFile(productThumbnailUploadPath, File.separator + dir, prefix, file.getOriginalFilename(), file.getBytes());
-				product.setPr_thumb("/" + dir + str);
-			}catch (Exception e) {
+				String dir = product.getPr_ca_name();//COM
+				String str = UploadFileUtils.uploadFile(productThumbnailUploadPath,File.separator + dir, prefix, file.getOriginalFilename(), file.getBytes());
+				product.setPr_thumb("/" +dir+ str);
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -137,12 +137,13 @@ public class ProductServiceImp implements ProductService {
 
 	@Override
 	public int updateLikes(LikesVO likes) {
-		if(likes == null ||
+		if(likes == null || 
 				likes.getLi_pr_code() == null ||
-				likes.getLi_pr_code().length() != 6 ||
+				likes.getLi_pr_code().length() != 6 || 
 				likes.getLi_me_email() == null)
 			return -1;
-		LikesVO dbLikes = productDao.selectLikes(likes.getLi_pr_code(), likes.getLi_me_email());
+		LikesVO dbLikes = 
+				productDao.selectLikes(likes.getLi_pr_code(), likes.getLi_me_email());
 		if(dbLikes == null) {
 			productDao.insertLikes(likes);
 			return 1;
@@ -157,5 +158,4 @@ public class ProductServiceImp implements ProductService {
 			return null;
 		return productDao.selectProductListByLikes(user.getMe_email());
 	}
-	
 }

@@ -1,6 +1,5 @@
 package kr.green.lg.service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +15,15 @@ import kr.green.lg.vo.MemberVO;
 
 @Service
 public class BoardServiceImp implements BoardService {
-	
 	@Autowired
 	BoardDAO boardDao;
 	
 	String uploadPath = "D:\\git\\uploadfiles";
-
+	
 	@Override
 	public boolean insertBoard(BoardVO board, MemberVO user, String bd_type) {
-		if(board == null ||
-				board.getBd_title() == null ||
+		if(board == null || 
+				board.getBd_title() == null || 
 				board.getBd_title().length() == 0 ||
 				board.getBd_content() == null)
 			return false;
@@ -43,7 +41,7 @@ public class BoardServiceImp implements BoardService {
 		if(cri == null)
 			cri = new Criteria();
 		
-		return boardDao.selectBoard(cri, bd_type);
+		return boardDao.selectBoardList(cri,bd_type);
 	}
 
 	@Override
@@ -52,7 +50,7 @@ public class BoardServiceImp implements BoardService {
 			return 0;
 		if(cri == null)
 			cri = new Criteria();
-		return boardDao.selectBoardTotalCount(cri, bd_type);
+		return boardDao.selectBoardTotalCount(cri,bd_type);
 	}
 
 	@Override
@@ -62,7 +60,7 @@ public class BoardServiceImp implements BoardService {
 		BoardVO board = boardDao.selectBoard(bd_num);
 		if(board == null)
 			return false;
-		if(user.getMe_authority() != 10 && board.getBd_me_email().equals(user.getMe_email()))
+		if(user.getMe_authority() != 10 && !board.getBd_me_email().equals(user.getMe_email()))
 			return false;
 		
 		return boardDao.deleteBoard(bd_num) == 1 ? true : false;
@@ -104,12 +102,12 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public boolean insertBoard(BoardVO board, MemberVO user, MultipartFile[] files) {
+	public boolean insertBoard(BoardVO board, MemberVO user ,MultipartFile[] files) {
 		if(board == null || board.getBd_type() == null || board.getBd_pr_code() == null)
 			return false;
 		try {
 			return insertBoard(board, user, board.getBd_type());
-		}catch(Exception e){}
+		}catch(Exception e) {}
 		finally {
 			if(files == null || files.length == 0)
 				return true;
