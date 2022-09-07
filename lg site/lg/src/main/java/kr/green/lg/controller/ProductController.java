@@ -39,14 +39,12 @@ public class ProductController {
 		mv.setViewName("/product/select");
 		return mv;
 	}
-	
 	@RequestMapping(value = "/product/list", method = RequestMethod.GET)
 	public ModelAndView productList(ModelAndView mv, String ca_name) {
 		mv.addObject("pr_ca_name", ca_name);
 		mv.setViewName("/product/list");
 		return mv;
 	}
-	
 	@RequestMapping(value = "/likes/list", method = RequestMethod.GET)
 	public ModelAndView likesList(ModelAndView mv, HttpSession session) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
@@ -56,21 +54,18 @@ public class ProductController {
 		return mv;
 	}
 	
-	
-	//ajax 코드들
-	@RequestMapping(value = "/category/list", method = RequestMethod.POST)
+	@RequestMapping(value="/category/list", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<Object, Object> categoryList() {
-		HashMap<Object, Object> map = new HashMap<Object, Object>();
+	public Map<Object,Object> categoryList() {
+		HashMap<Object,Object> map = new HashMap<Object, Object>();
 		ArrayList<CategoryVO> list = productService.getCategoryList();
 		map.put("list", list);
 		return map;
 	}
-	
-	@RequestMapping(value = "/ajax/product/list", method = RequestMethod.POST)
+	@RequestMapping(value="/ajax/product/list", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<Object, Object> ajaxProductList(@RequestBody Criteria cri) {
-		HashMap<Object, Object> map = new HashMap<Object, Object>();
+	public Map<Object,Object> ajaxProductList(@RequestBody Criteria cri) {
+		HashMap<Object,Object> map = new HashMap<Object, Object>();
 		ArrayList<ProductVO> list = productService.selectProductList(cri);
 		int totalCount = productService.getProductTotalCount(cri);
 		PageMaker pm = new PageMaker(totalCount, 2, cri);

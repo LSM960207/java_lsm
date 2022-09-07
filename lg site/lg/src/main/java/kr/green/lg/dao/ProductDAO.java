@@ -17,7 +17,7 @@ public interface ProductDAO {
 
 	void insertProduct(ProductVO product);
 
-	CategoryVO selectCategoryByCode(String ca_code);
+	CategoryVO selectCategoryByCa_code(String ca_code);
 
 	void updateCategory(CategoryVO category);
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.lg.pagination.Criteria;
@@ -20,7 +21,7 @@ import kr.green.lg.vo.MemberVO;
 
 @Controller
 public class BoardController {
-	
+
 	@Autowired
 	BoardService boardService;
 	@Autowired
@@ -32,10 +33,19 @@ public class BoardController {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		boolean res = boardService.deleteBoard(bd_num, user);
 		String redirectUrl = boardService.getDeleteRedirectURL(bd_type);
+		
 		if(res)
 			messageService.message(response, "게시글이 삭제되었습니다.", redirectUrl);
 		else
 			messageService.message(response, "게시글 삭제에 실패했습니다.", redirectUrl);
+		return mv;
+	}
+	
+	@RequestMapping(value = "/board/select", method = RequestMethod.GET)
+	public ModelAndView boardSelectGet(ModelAndView mv, Integer bd_num) {
+		BoardVO board = boardService.getBoard(bd_num);
+		mv.addObject("bo", board);
+		mv.setViewName("/board/select");
 		return mv;
 	}
 	
@@ -44,11 +54,30 @@ public class BoardController {
 		ArrayList<BoardVO> list = boardService.getBoardList(cri, bd_type);
 		int totalCount = boardService.getTotalCount(cri, bd_type);
 		PageMaker pm = new PageMaker(totalCount, 5, cri);
+		
 		mv.addObject("pm", pm);
 		mv.addObject("list", list);
 		mv.addObject("bd_type", bd_type);
 		mv.setViewName("/board/list");
 		return mv;
 	}
+	
+	@RequestMapping(value = "/board/insert", method = RequestMethod.GET)
+	public ModelAndView boardInsertGet(ModelAndView mv, Integer bd_num) {
 
+		mv.setViewName("/board/insert");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/board/insert", method = RequestMethod.POST)
+	public ModelAndView boardInsertPost(ModelAndView mv, BoardVO board, HttpSession session,
+			MultipartFile []files, HttpServletResponse response) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		boolean res = boardService.insertBoard(board, user, files);
+		if(res)
+			messageService.message(response, "게시글을 등록했습니다.", "/lg/product/select?pr_code="+board.getBd_pr_code());
+		else
+			messageService.message(response, "게시글 등록에 실패했습니다.", "/lg/product/select?pr_code="+board.getBd_pr_code());
+		return mv;
+	}
 }
