@@ -21,7 +21,7 @@ form.btn{
 <body>
 <div class="container">
   <h2>제품 리스트</h2>
-  <a href="<c:url value="/admin/product/insert"></c:url>" class="btn btn-outline-success mb-3">제품등록</a>
+  <a href="<c:url value="/admin/product/insert"></c:url>" class="btn btn-outline-warning mb-3">제품등록</a>
   <table class="table table-hover">
     <thead>
       <tr>

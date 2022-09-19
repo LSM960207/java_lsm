@@ -75,8 +75,8 @@
 	    <tbody>
 	      <tr>
 	        <td class="box-qna">
-	        	<a href="<%=request.getContextPath()%>/board/select?bd_num=5" data-secret="1" class="link-qna">
-	        		<i class="fa-solid fa-lock"></i><span> 제목</span>
+	        	<a href="<%=request.getContextPath()%>/board/select?bd_num=14" data-secret="1" class="link-qna">
+	        		<i class="fa-solid fa-lock"></i><span>제목</span>
 	        	</a>
 	        </td>
 	        <td>Doe</td>
@@ -134,13 +134,13 @@ $(function(){
 			}
 		})
 	})
-	$(document).on('click', '.link-qna', function(e){
+	$(document).on('click','.link-qna',function(e){
 		if($(this).data('secret') == 1 && $(this).parent().siblings().text() != '${user.me_email}'){
 			alert('비밀문의는 작성자와 관리자만 확인할 수 있습니다.');
 			e.preventDefault();
 		}
 	})
-	$(document).on('click', '.pagination .page-link', function(){
+	$(document).on('click','.pagination .page-link',function(){
 		cri.page = $(this).data('page');
 		loadQNA(cri);
 	})
@@ -152,7 +152,6 @@ let cri = {
 		perPageNum : 2,
 		search : '${p.pr_code}'
 }
-	
 function loadQNA(cri){
 	ajaxPost(false, cri, '/qna/list', function(data){
 		
@@ -161,46 +160,44 @@ function loadQNA(cri){
 		
 	})
 }
-
-function createQNAList(list, target) {
+function createQNAList(list, target){
 	let str = '';
 	for(b of list){
-		str += '<tr>';
-	str += 	'<td class="box-qna">';
-	str +=  	'<a href="<%=request.getContextPath()%>/board/select?bd_num='+b.bd_num+'" data-secret="'+b.bd_secret+'" class="link-qna">';
-	if(b.bd_secret == '1')   
-		str +=	'<i class="fa-solid fa-lock"></i>';
-	str +=    		'<span>'+b.bd_title+'</span>';
-	str +=   	'</a>';
-	str +=    '</td>';
-	str +=    '<td>'+b.bd_me_email+'</td>';
-	str +=  '</tr>';
+		str += '<tr>'
+  str +=   '<td class="box-qna">'
+  str += 	   '<a href="<%=request.getContextPath()%>/board/select?bd_num='+b.bd_num+'" data-secret="'+b.bd_secret+'" class="link-qna">'
+  if(b.bd_secret == '1')
+		str +=     '<i class="fa-solid fa-lock"></i>'
+  str +=		   '<span>'+b.bd_title+'</span>'
+  str +=	   '</a>'
+  str +=   '</td>'
+  str +=   '<td>'+b.bd_me_email+'</td>'
+	str += '</tr>'
 	}
 	$(target).html(str);
 }
-function createPagination(pm, target) {
+function createPagination(pm, target){
 	let str = '';
 	let prev = pm.prev ? '' : 'disabled';
-	
-  str +=	'<li class="page-item '+prev+'">';
-  str +=		'<a class="page-link" href="javascript:0;" data-page="1">처음</a>';
-  str +=	'</li>';
-  str +=	'<li class="page-item '+prev+'">';
-  str +=		'<a class="page-link" href="javascript:0;" data-page="'+(pm.startPage-1)+'">이전</a>';
-  str +=	'</li>';
-  for(i = pm.startPage; i <= pm.endPage; i++){
-	  let active = pm.cri.page == i ? 'active' : '';
-  	str +=  '<li class="page-item '+active+'">';
-    str +=		'<a class="page-link" href="javascript:0;" data-page="'+i+'">'+i+'</a>';
-    str +=	'</li>';
+  str +=	'<li class="page-item '+prev+'">'
+  str +=		'<a class="page-link" href="javascript:0;" data-page="1">처음</a>'
+  str +=	'</li>'
+  str +=	'<li class="page-item '+prev+'">'
+  str +=		'<a class="page-link" href="javascript:0;" data-page="'+(pm.startPage-1)+'">이전</a>'
+	str +=	'</li>'
+  for(i = pm.startPage; i<= pm.endPage; i++){
+	  let active = pm.cri.page == i?'active':'';
+  	str +='<li class="page-item '+active+'">'
+  	str +=	'<a class="page-link" href="javascript:0;" data-page="'+i+'">'+i+'</a>' 		
+  	str +='</li>'
   }
 	let next = pm.next ? '' : 'disabled';
-	str +=	'<li class="page-item '+next+'">';
-	str +=		'<a class="page-link" href="javascript:0;" data-page="'+(pm.endPage+1)+'">다음</a>';
-	str +=	'</li>';
-	str +=	'<li class="page-item '+next+'">';
-	str +=		'<a class="page-link" href="javascript:0;" data-page="'+(pm.finalPage)+'">마지막</a>';
-	str +=	'</li>';
+	str +=	'<li class="page-item '+next+'">'
+  str +=		'<a class="page-link" href="javascript:0;" data-page="'+(pm.endPage+1)+'">다음</a>'
+  str +=	'</li>'
+  str +=	'<li class="page-item '+next+'">'
+  str +=		'<a class="page-link" href="javascript:0;" data-page="'+pm.finalPage+'">마지막</a>'
+	str +=	'</li>'
   
   $(target).html(str);
 }

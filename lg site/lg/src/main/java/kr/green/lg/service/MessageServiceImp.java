@@ -9,22 +9,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MessageServiceImp implements MessageService {
-	
-	//카테고리메세지에만 쓸 것
+
 	@Override
 	public void categoryMessage(HttpServletResponse response, int res) {
 		String redirectUrl = "/lg/admin/category";
 		switch (res) {
-		case 1: 	message(response, "카테고리코드는 3글자이어야 합니다.", redirectUrl); break;	//ca_code길이 3이 아님
-		case -1: 	message(response, "카테고리명 또는 카테고리코드가 중복되었습니다.", redirectUrl); break;	//중복
-		case -2: 	message(response, "카테고리명 또는 카테고리코드가 입력되지 않았습니다.", redirectUrl); break;	//null
+		case 1:		message(response,"카테고리코드는 3글자이어야 합니다.",redirectUrl);	break;//ca_code길이 3이 아님
+		case -1:	message(response,"카테고리명 또는 카테고리코드가 중복되었습니다.",redirectUrl);break;//중복
+		case -2:	message(response,"카테고리명 또는 카테고리코드가 입력되지 않았습니다",redirectUrl);break;//null
 		default:
-			message(response, "카테고리가 등록되었습니다.", redirectUrl);
+			message(response,"카테고리가 등록되었습니다.",redirectUrl);
 		}
-	
 	}
 
-	//범용적으로 쓰일 것
 	@Override
 	public void message(HttpServletResponse response, String content, String redirectUrl) {
 		if(response == null)
@@ -39,7 +36,6 @@ public class MessageServiceImp implements MessageService {
 		}
 		out.println("<script>alert('"+content+"');location.href='"+redirectUrl+"'</script>");
 		out.flush();
-		
 	}
 
 }

@@ -8,7 +8,6 @@ import java.util.UUID;
 import org.springframework.util.FileCopyUtils;
 
 public class UploadFileUtils {
-	
 	public static String uploadFileUUID(String uploadPath, String originalName, byte[] 	
 			fileData)throws Exception{
 		UUID uid = UUID.randomUUID();
@@ -19,12 +18,11 @@ public class UploadFileUtils {
 		String uploadFileName = makeIcon(uploadPath, savedPath, savedName);
 		return uploadFileName;
 	}
-	
-	public static String uploadFile(String uploadPath, String dir, String prefix, String originalName, byte[] 	
+	public static String uploadFile(String uploadPath,String dir,String prefix, String originalName, byte[] 	
 			fileData)throws Exception{
 		String savedName = originalName;
-		if(prefix != null || prefix.length() != 0)
-			savedName= prefix + "_" + originalName;
+		if(prefix != null && prefix.length() !=0)
+			savedName = prefix + "_" + originalName;
 		makeDir(uploadPath, dir);
 		File target = new File(uploadPath+dir, savedName);
 		FileCopyUtils.copy(fileData, target);
@@ -59,9 +57,8 @@ public class UploadFileUtils {
 		String iconName = uploadPath + path + File.separator + fileName;
 		return iconName.substring(uploadPath.length()).replace(File.separatorChar, '/');
 	}
-	
 	public static boolean deleteFile(String uploadPath, String fileName) {
-		//fileName에 있는 /대신 \로 수정하는
+		//fileName에 있는 /대신 \로 수정
 		String fileName2 = fileName.replace('/', File.separatorChar);
 		File file = new File(uploadPath+fileName2);
 		//삭제하려는 첨부파일이 실제 서버에 없으면

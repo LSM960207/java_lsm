@@ -1,6 +1,7 @@
 package kr.green.lg.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;

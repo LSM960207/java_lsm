@@ -10,7 +10,6 @@ public class CategoryVO {
 	private String ca_code;
 	private int ca_count;
 	
-	
 	public String getPr_code() {
 		DecimalFormat df = new DecimalFormat("000");
 		return ca_code + df.format(ca_count+1);

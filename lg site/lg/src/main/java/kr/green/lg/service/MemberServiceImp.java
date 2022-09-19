@@ -18,26 +18,26 @@ import kr.green.lg.vo.MemberVO;
 
 @Service
 public class MemberServiceImp implements MemberService {
-
+	
 	@Autowired
 	MemberDAO memberDao;
 	@Autowired
 	private JavaMailSender mailSender;
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
-	
+
 	private String createRandom(String str, int count) {
 		if(str == null)
 			return "";
 		String randomStr = "";
 		
-		for(int i = 0; i < count; i++) {
+		for(int i = 0; i<count; i++) {
 			int r = (int)(Math.random()*str.length());
 			randomStr += str.charAt(r);
 		}
 		return randomStr;
 	}
-
+	
 	@Override
 	public boolean signup(MemberVO member) {
 		if(member == null)
@@ -47,22 +47,24 @@ public class MemberServiceImp implements MemberService {
 		member.setMe_code(me_code);
 		String newPw = passwordEncoder.encode(member.getMe_pw());
 		member.setMe_pw(newPw);
-		//DB에 member 정보를 추가
 		try {
 			memberDao.insertMember(member);
 			//메일로 링크를 보내줌
 			String title = "LG 사이트 회원가입을 축하합니다.";
-			String content = 
+			String content =
 					"이메일 인증을 하여 계정을 활성화 하세요. 아래 링크를 클릭해주세요.<br>" +
-					"<a href='http://localhost:8080/lg/signup/check?me_code=" + me_code + "&me_email="+ member.getMe_email() +"'>" +
-							"http://localhost:8080/lg/signup/check?me_code=" + me_code + "&me_email=" + member.getMe_email() +
+					"<a href='http://localhost:8080/lg/signup/check?me_code="+ me_code+"&me_email="+member.getMe_email()+"'>" + 
+							"http://localhost:8080/lg/signup/check?me_code="+me_code+"&me_email="+member.getMe_email()+
 					"</a>";
 			sendEmail(title, content, member.getMe_email());
 		}catch(Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 		return true;
 	}
+
+	
 
 	@Override
 	public boolean isUser(MemberVO member) {
@@ -81,15 +83,15 @@ public class MemberServiceImp implements MemberService {
       MimeMessageHelper messageHelper 
           = new MimeMessageHelper(message, true, "UTF-8");
 
-      messageHelper.setFrom("tjrals020@gmail");  // 보내는사람 생략하거나 하면 정상작동을 안함
+      messageHelper.setFrom("stajun@gmail");  // 보내는사람 생략하거나 하면 정상작동을 안함
       messageHelper.setTo(receiver);     // 받는사람 이메일
       messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
       messageHelper.setText(content, true);  // 메일 내용
 
       mailSender.send(message);
-  } catch(Exception e){
-      System.out.println(e);
-  }
+	  } catch(Exception e){
+	      System.out.println(e);
+	  }
 		return false;
 	}
 
@@ -100,7 +102,7 @@ public class MemberServiceImp implements MemberService {
 		MemberVO user = memberDao.selectMember(member.getMe_email());
 		if(user == null)
 			return false;
-		if(user.getMe_pos_count() >= 5)
+		if(user.getMe_pos_count() > 5)
 			return false;
 		
 		if(user.getMe_pos() == 1)
@@ -129,7 +131,6 @@ public class MemberServiceImp implements MemberService {
 		
 		if(passwordEncoder.matches(member.getMe_pw(), user.getMe_pw()))
 			return user;
-		
 		return null;
 	}
 
@@ -138,7 +139,6 @@ public class MemberServiceImp implements MemberService {
 		if(user == null || user.getMe_email() == null)
 			return;
 		memberDao.updateMemberSession(user);
-		
 	}
 
 	@Override
@@ -155,9 +155,9 @@ public class MemberServiceImp implements MemberService {
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		if(user == null)
-			return;
+			return ;
 		session.removeAttribute("user");
-		Cookie cookie = WebUtils.getCookie(request, "lgCookie");	
+		Cookie cookie = WebUtils.getCookie(request, "lgCookie");
 		if(cookie == null || response == null)
 			return;
 		cookie.setPath("/");
@@ -167,5 +167,5 @@ public class MemberServiceImp implements MemberService {
 		user.setMe_s_limit(null);
 		memberDao.updateMemberSession(user);
 	}
-	
+
 }

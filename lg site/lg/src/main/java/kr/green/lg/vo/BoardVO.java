@@ -22,3 +22,5 @@ public class BoardVO {
 		return format.format(bd_reg_date);
 	}
 }
+ 
+ 
