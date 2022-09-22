@@ -21,9 +21,9 @@
 		<form action="<%=request.getContextPath()%>/signup" method="post">
 			<h1 class="text-center">회원가입</h1>
 			<div class="form-group">
-  			<label for="me_email">이메일 : </label>
-  			<input type="text" class="form-control" id="me_email" name="me_email">
-  			<label id="me_email-error" class="error" for="me_email"></label>
+  			<label for="me_id">아이디 : </label>
+  			<input type="text" class="form-control" id="me_id" name="me_id">
+  			<label id="me_id-error" class="error" for="me_id"></label>
 			</div>
 			<div class="form-group">
   			<label for="me_pw">비밀번호 : </label>
@@ -34,20 +34,17 @@
   			<input type="password" class="form-control" id="me_pw2" name="me_pw2">
 			</div>
 			<div class="form-group">
-  			<label for="me_birth">생년월일 : </label>
-  				<input type="text" class="form-control" id="me_birth" name="me_birth">
+  			<label for="me_name">이름 : </label>
+  				<input type="text" class="form-control" id="me_name" name="me_name">
 			</div>
 			<div class="form-group">
-				<div class="input-group mb-3">
-					<input type="text" id="me_post_code" placeholder="우편번호" name="me_post_code" class="form-control">
-					<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="form-control">
-				</div>
-				<div class="input-group mb-3">
-					<input type="text" id="me_addr" placeholder="주소" name="me_addr" class="form-control">
-				</div>
-				<div class="input-group mb-3">
-					<input type="text" id="me_addr_detail" placeholder="상세주소" name="me_addr_detail" class="form-control">
-				</div>
+  			<label for="me_phone">휴대전화 : </label>
+  				<input type="text" class="form-control" id="me_phone" name="me_phone">
+			</div>
+			<div class="form-group">
+  			<label for="me_email">이메일 : </label>
+  			<input type="text" class="form-control" id="me_email" name="me_email">
+  			<label id="me_email-error" class="error" for="me_email"></label>
 			</div>
 			<button class="btn btn-outline-success col-12 mb-5">회원가입</button>
 		</form>
