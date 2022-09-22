@@ -1,14 +1,10 @@
 package kr.green.maranix.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -47,6 +43,24 @@ public class HomeController {
 	public ModelAndView signupSuccessGet(ModelAndView mv) {
 		mv.addObject("title","회원가입완료");
 		mv.setViewName("/main/signupSuccess");
+		return mv;
+	}
+	@RequestMapping(value = "/login")
+	public ModelAndView login(ModelAndView mv, MemberVO member) {
+		MemberVO user = memberService.login(member);
+		mv.addObject("user", user);
+		mv.addObject("title","로그인");
+		if(user == null)
+			mv.setViewName("/main/login");
+		else
+			mv.setViewName("redirect:/");
+		return mv;
+	}
+	@RequestMapping(value = "/logout")
+	public ModelAndView logout(ModelAndView mv, HttpServletRequest request,
+			HttpServletResponse response) {
+		memberService.logout(request,response);
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 }

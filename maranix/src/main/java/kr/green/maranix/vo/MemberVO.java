@@ -1,5 +1,7 @@
 package kr.green.maranix.vo;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -11,4 +13,8 @@ public class MemberVO {
 	private String me_phone;
 	private String me_email;
 	private String me_code;
+	private String me_s_id;
+	private Date me_s_limit;
+	public boolean isAutoLogin;
+	
 }

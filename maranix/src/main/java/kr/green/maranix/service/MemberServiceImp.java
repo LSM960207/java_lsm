@@ -1,5 +1,9 @@
 package kr.green.maranix.service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -44,4 +48,55 @@ public class MemberServiceImp implements MemberService{
 		}
 		return true;
 	}
+
+	@Override
+	public MemberVO login(MemberVO member) {
+		if(member == null || member.getMe_id() == null || member.getMe_pw() == null)
+			return null;
+		MemberVO user = memberDao.selectMember(member.getMe_id());
+		if(user == null)
+			return null;
+		
+		if(passwordEncoder.matches(member.getMe_pw(), user.getMe_pw()))
+			return user;
+		return null;
+	}
+
+	@Override
+	public boolean isUser(MemberVO member) {
+		if(member == null || member.getMe_email() == null)
+			return false;
+		MemberVO dbMember = memberDao.selectMember(member.getMe_id());
+		if(dbMember != null)
+			return false;
+		return true;
+	}
+
+	@Override
+	public void logout(HttpServletRequest request, HttpServletResponse response) {
+		if(request == null)
+			return;
+		HttpSession session = request.getSession();
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(user == null)
+			return ;
+		session.removeAttribute("user");
+
+		memberDao.updateMemberSession(user);
+	}
+
+	@Override
+	public void updateMemberSession(MemberVO user) {
+		if(user == null || user.getMe_id() == null)
+			return;
+		memberDao.updateMemberSession(user);
+	}
+
+	@Override
+	public MemberVO loginBySession(String me_s_id) {
+		if(me_s_id == null)
+			return null;
+		return memberDao.selectBySession(me_s_id);
+	}
+
 }

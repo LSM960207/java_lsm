@@ -6,10 +6,10 @@
 	<title>Home</title>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
+<h2>
+	마라닉스몰 
+</h2>
 
-<P>  ${me_id} </P>
+<P>   </P>
 </body>
 </html>
