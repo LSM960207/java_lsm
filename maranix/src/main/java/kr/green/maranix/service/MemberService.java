@@ -1,5 +1,8 @@
 package kr.green.maranix.service;
 
+import kr.green.maranix.vo.MemberVO;
+
 public interface MemberService {
-	 public String getEmail(String id);
+
+	public boolean signup(MemberVO member);
 }
