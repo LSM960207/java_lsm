@@ -26,7 +26,7 @@
 		       		<a class="nav-link" href="<c:url value="/login"></c:url>">로그아웃</a>
 		      	</li>
 		      	<li class="nav-item">
-		       		<a class="nav-link" href="<c:url value="/signup"></c:url>">정보수정</a>
+		       		<a class="nav-link" href="<c:url value="/modify"></c:url>">정보수정</a>
 		      	</li>
 		      	<li class="nav-item">
 		        	<a class="nav-link" href="<c:url value="/cart"></c:url>">장바구니</a>
@@ -38,6 +38,11 @@
 		        	<a class="nav-link" href="<c:url value="/myPage"></c:url>">마이페이지</a>
 		      	</li>
 		     </c:if>
+		     <c:if test="${user.me_authority == 10 }">
+	      	<li class="nav-item">
+	        	<a class="nav-link" href="<c:url value="/admin"></c:url>">관리자</a>
+	      	</li>
+      	</c:if>
 	    	</ul>
 		</div> 
 	</div> 

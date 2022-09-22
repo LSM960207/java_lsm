@@ -17,5 +17,5 @@ public interface MemberService {
 
 	MemberVO loginBySession(String me_s_id);
 
-	public void logout(HttpServletRequest request, HttpServletResponse response);
+	void logout(HttpServletRequest request, HttpServletResponse response);
 }

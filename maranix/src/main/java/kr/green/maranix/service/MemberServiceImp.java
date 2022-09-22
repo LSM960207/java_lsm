@@ -1,5 +1,6 @@
 package kr.green.maranix.service;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
 import kr.green.maranix.dao.MemberDAO;
 import kr.green.maranix.vo.MemberVO;
@@ -81,7 +83,14 @@ public class MemberServiceImp implements MemberService{
 		if(user == null)
 			return ;
 		session.removeAttribute("user");
-
+		Cookie cookie = WebUtils.getCookie(request, "lgCookie");
+		if(cookie == null || response == null)
+			return;
+		cookie.setPath("/");
+		cookie.setMaxAge(0);
+		response.addCookie(cookie);
+		user.setMe_s_id(null);
+		user.setMe_s_limit(null);
 		memberDao.updateMemberSession(user);
 	}
 

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.maranix.service.MemberService;
-import kr.green.maranix.vo.MemberVO;
 
 
 @Controller
