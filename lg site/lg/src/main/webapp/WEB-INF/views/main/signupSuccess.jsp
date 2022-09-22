@@ -9,7 +9,6 @@
 <body>
 <div class="container">
 	<h4>회원가입이 완료되었습니다.</h4>
-	<h5>이메일 인증을 통해 계정을 활성화하세요.</h5>
 </div>
 </body>
 </html>
