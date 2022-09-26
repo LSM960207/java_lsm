@@ -83,7 +83,7 @@ public class MemberServiceImp implements MemberService{
 		if(user == null)
 			return ;
 		session.removeAttribute("user");
-		Cookie cookie = WebUtils.getCookie(request, "lgCookie");
+		Cookie cookie = WebUtils.getCookie(request, "mmCookie");
 		if(cookie == null || response == null)
 			return;
 		cookie.setPath("/");

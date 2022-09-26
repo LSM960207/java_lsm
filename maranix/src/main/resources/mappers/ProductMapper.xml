@@ -28,4 +28,7 @@
 		insert into product(pr_code, pr_thumb, pr_title, pr_content, pr_price, pr_count, pr_ca_name)
 		values(#{pr_code}, #{pr_thumb}, #{pr_title}, #{pr_content}, #{pr_price}, #{pr_count}, #{pr_ca_name})
 	</insert>
+	<update id="updateCategory">
+		update category set ca_count = ca_count+1 where ca_name = #{ca_name}
+	</update>
 </mapper>

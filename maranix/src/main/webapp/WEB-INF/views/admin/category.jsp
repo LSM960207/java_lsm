@@ -24,7 +24,7 @@
       <tr>
         <th>카테고리명</th>
         <th>카테고리코드</th>
-        <th>재고량</th>
+        <th>제품 종류</th>
       </tr>
     </thead>
     <tbody>

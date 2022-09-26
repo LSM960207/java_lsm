@@ -25,7 +25,7 @@ public class AutoLoginInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		if(user == null) {
-			Cookie cookie = WebUtils.getCookie(request, "lgCookie");
+			Cookie cookie = WebUtils.getCookie(request, "mmCookie");
 			if(cookie != null) {
 				String me_s_id = cookie.getValue();
 				user = memberService.loginBySession(me_s_id);

@@ -44,9 +44,6 @@
 			  <input type="text" class="form-control" readonly value="제품번호" name="pr_code">
 			</div>
 			<div class="form-group">
-			  <input type="text" class="form-control" value="제품종류명" name="pr_ca_name">
-			</div>
-			<div class="form-group">
 			  <input type="text" class="form-control" name="pr_price" placeholder="제품 가격(정수)">
 			</div>
 		</div>
@@ -88,7 +85,7 @@ $(function(){
 	$('[name=pr_content]').summernote({
     placeholder: '제품 설명을 입력하세요.',
     tabsize: 2,
-    height: 400
+    height: 300
   });
 	$('[name=pr_ca_name]').change(function(){
 		$('[name=pr_code]').val($(this).val());
@@ -125,7 +122,7 @@ $(function(){
 			return false;
 		}
 		let pr_count = $('[name=pr_count]').val();
-		if(pr_count == ''){
+		if(pr_count == 0){
 			alert('제품 수량을 입력하세요.');
 			$('[name=pr_count]').focus();
 			return false;

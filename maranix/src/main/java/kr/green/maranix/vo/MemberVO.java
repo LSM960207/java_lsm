@@ -15,6 +15,6 @@ public class MemberVO {
 	private String me_code;
 	private String me_s_id;
 	private Date me_s_limit;
-	public boolean isAutoLogin;
+	public boolean autoLogin;
 	
 }

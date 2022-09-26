@@ -34,7 +34,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	        HttpSession session = request.getSession();
 	        session.setAttribute("user", user);
 	        if(user.isAutoLogin()) {
-	        	Cookie cookie = new Cookie("lgCookie", session.getId());
+	        	Cookie cookie = new Cookie("mmCookie", session.getId());
 	        	int time = 60 * 60 * 24 * 7;
 	        	cookie.setPath("/");
 	        	cookie.setMaxAge(time);

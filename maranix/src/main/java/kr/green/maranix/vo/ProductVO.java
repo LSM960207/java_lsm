@@ -11,4 +11,8 @@ public class ProductVO {
 	private int pr_price;
 	private int pr_count;
 	private String pr_ca_name;
+	
+	public String getPr_thumb_url() {
+		return "/product/img" + pr_thumb;
+	}
 }

@@ -7,11 +7,11 @@ import kr.green.maranix.vo.MemberVO;
 
 public interface MemberService {
 
-	public boolean signup(MemberVO member);
+	boolean signup(MemberVO member);
 	
 	boolean isUser(MemberVO member);
 
-	public MemberVO login(MemberVO member);
+	MemberVO login(MemberVO member);
 	
 	void updateMemberSession(MemberVO user);
 
