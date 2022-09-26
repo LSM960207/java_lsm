@@ -90,11 +90,6 @@ $(function(){
     tabsize: 2,
     height: 400
   });
-	$('[name=pr_spec]').summernote({
-	  placeholder: '제품 스펙을 입력하세요.',
-	  tabsize: 2,
-	  height: 400
-  });
 	$('[name=pr_ca_name]').change(function(){
 		$('[name=pr_code]').val($(this).val());
 	})
@@ -129,10 +124,10 @@ $(function(){
 			$('[name=pr_content]').focus();
 			return false;
 		}
-		let pr_spec = $('[name=pr_spec]').val();
-		if(pr_spec == ''){
-			alert('제품 스펙을 입력하세요.');
-			$('[name=pr_spec]').focus();
+		let pr_count = $('[name=pr_count]').val();
+		if(pr_count == ''){
+			alert('제품 수량을 입력하세요.');
+			$('[name=pr_count]').focus();
 			return false;
 		}
 	});

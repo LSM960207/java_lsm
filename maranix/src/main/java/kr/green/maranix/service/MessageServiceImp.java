@@ -12,7 +12,7 @@ public class MessageServiceImp implements MessageService {
 
 	@Override
 	public void categoryMessage(HttpServletResponse response, int res) {
-		String redirectUrl = "/lg/admin/category";
+		String redirectUrl = "/maranix/admin/category";
 		switch (res) {
 		case 1:		message(response,"카테고리코드는 3글자이어야 합니다.",redirectUrl);	break;//ca_code길이 3이 아님
 		case -1:	message(response,"카테고리명 또는 카테고리코드가 중복되었습니다.",redirectUrl);break;//중복
