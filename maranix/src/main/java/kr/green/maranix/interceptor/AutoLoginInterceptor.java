@@ -1,5 +1,7 @@
 package kr.green.maranix.interceptor;
 
+import java.util.Date;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,8 +14,8 @@ import org.springframework.web.util.WebUtils;
 import kr.green.maranix.service.MemberService;
 import kr.green.maranix.vo.MemberVO;
 
-public class AutoLoginInterceptor extends HandlerInterceptorAdapter{
-
+public class AutoLoginInterceptor extends HandlerInterceptorAdapter {
+	
 	@Autowired
 	MemberService memberService;
 	

@@ -21,7 +21,8 @@ form.btn{
 <body>
 <div class="container">
   <h2>제품 리스트</h2>
-  <a href="<c:url value="/admin/product/insert"></c:url>" class="btn btn-outline-warning mb-3">제품등록</a>
+  <a href="<c:url value="/admin/product/insert"></c:url>" class="btn btn-outline-success mb-3">제품등록</a>
+  <a href="<c:url value="/admin/product/insert"></c:url>" class="btn btn-outline-success mb-3">제품사이즈등록</a>
   <table class="table table-hover">
     <thead>
       <tr>
@@ -46,8 +47,8 @@ form.btn{
 	        </td>
 	        <td>${pro.pr_price}</td>
 	        <td>
-	        	<a class="btn btn-outline-danger" href="<c:url value="/admin/product/update?pr_code=${pro.pr_code}"></c:url>">수정</a>
-	        	<form class="btn btn-outline-warning" action="<c:url value="/admin/product/delete"></c:url>"  method="post">
+	        	<a class="btn btn-outline-warning" href="<c:url value="/admin/product/update?pr_code=${pro.pr_code}"></c:url>">수정</a>
+	        	<form class="btn btn-outline-danger" action="<c:url value="/admin/product/delete"></c:url>"  method="post">
 	        		<button class="btn-del">삭제</button>
 	        		<input type="hidden" name="pr_code" value="${pro.pr_code}">
 	        	</form>

@@ -31,4 +31,24 @@
 	<update id="updateCategory">
 		update category set ca_count = ca_count+1 where ca_name = #{ca_name}
 	</update>
+	<select id="selectProduct" resultType="kr.green.maranix.vo.ProductVO">
+		select * from product where pr_code = #{pr_code}
+	</select>
+	<delete id="deleteProduct">
+		delete from product where pr_code = #{pr_code}
+	</delete>
+	<update id="updateProduct">
+		update product
+			set
+				pr_thumb = #{pr_thumb},
+				pr_title = #{pr_title},
+				pr_content = #{pr_content},
+				pr_price = #{pr_price},
+				pr_count = #{pr_count}
+			where pr_code= #{pr_code}
+	</update>
+	<select id="selectLikes" resultType="kr.green.maranix.vo.LikesVO">
+		select * from likes 
+			where li_pr_code = #{pr_code} and li_me_id = #{me_id}
+	</select>
 </mapper>

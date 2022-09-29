@@ -44,10 +44,66 @@
 			<div class="form-group">
   			<label for="me_email">이메일 : </label>
   			<input type="text" class="form-control" id="me_email" name="me_email">
-  			<label id="me_email-error" class="error" for="me_email"></label>
 			</div>
 			<button class="btn btn-outline-success col-12 mb-5">회원가입</button>
 		</form>
 	</div>
+<script type="text/javascript">
+$(function(){
+ 	$("form").validate({
+     rules: {
+    	 me_id: 	{	required : true       },
+       me_pw: 	{	required : true       },
+       me_pw2: 	{
+         required : true,
+         equalTo : me_pw
+       },
+       me_name : {
+    	   required : true
+       },
+       me_phone : { required : true},
+       me_email: {
+         required : true,
+         email : true
+       }
+     },
+     //규칙체크 실패시 출력될 메시지
+     messages : {
+    	 me_id: { required : "필수항목입니다."}
+       me_pw: {	  required : "필수항목입니다."      },
+       me_pw2: {
+     	  required : "필수항목입니다.",
+         equalTo : "비밀번호와 비밀번호 확인이 일치하지 않습니다."
+       },
+       me_name : {
+    	   required : "필수항목입니다.",
+       },
+       me_email: {
+     	  required : "필수항목입니다.",
+     	  email : "이메일 형식에 맞지 않습니다."
+       },
+       me_phone: { required : "필수항목입니다."      }
+    },
+    submitHandler: function(form) {
+     	if(!idCheck){
+				$('#me_id-error').text('이미 사용중인 아이디입니다.').show();
+				$('#me_id').focus();
+				return false;
+			}  
+     	return true;
+    }
+ 	});
+})
+	$.validator.addMethod(
+	"regex",
+	function(value, element, regexp) {
+    	var re = new RegExp(regexp);
+    	return this.optional(element) || re.test(value);
+	},
+		"Please check your input."
+);
+
+
+</script>
 </body>
 </html>

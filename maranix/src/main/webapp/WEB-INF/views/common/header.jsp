@@ -23,10 +23,10 @@
 		     </c:if>
 		     <c:if test="${user != null}">
 		      	<li class="nav-item">
-		       		<a class="nav-link" href="<c:url value="/login"></c:url>">로그아웃</a>
+		       		<a class="nav-link" href="<c:url value="/logout"></c:url>">로그아웃</a>
 		      	</li>
 		      	<li class="nav-item">
-		       		<a class="nav-link" href="<c:url value="/modify"></c:url>">정보수정</a>
+		       		<a class="nav-link" href="<c:url value="/update"></c:url>">정보수정</a>
 		      	</li>
 		      	<li class="nav-item">
 		        	<a class="nav-link" href="<c:url value="/cart"></c:url>">장바구니</a>

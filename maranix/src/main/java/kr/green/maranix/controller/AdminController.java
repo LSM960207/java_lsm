@@ -58,7 +58,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "/admin/product/list", method = RequestMethod.GET)
 	public ModelAndView productListGet(ModelAndView mv, Criteria cri) {
-		cri.setPerPageNum(2);
+		cri.setPerPageNum(10);
 		ArrayList<ProductVO> list = productService.selectProductList(cri);
 		int totalCount = productService.getProductTotalCount(cri);
 		PageMaker pm = new PageMaker(totalCount, 3, cri);
@@ -84,6 +84,45 @@ public class AdminController {
 		productService.insertProduct(product, file);
 		//messageService.message(response, "제품을 등록했습니다.", "/maranix/admin/product/list");
 		mv.setViewName("redirect:/admin/product/list");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/admin/product/delete", method = RequestMethod.POST)
+	public ModelAndView productDeletePost(ModelAndView mv, HttpServletResponse response, String pr_code) {
+		boolean res = productService.deleteProduct(pr_code);
+		if(res)
+			messageService.message(response, "제품을 삭제했습니다.", "/maranix/admin/product/list");
+		else
+			messageService.message(response, "제품을 삭제하지 못했습니다.", "/maranix/admin/product/list");
+		mv.setViewName("redirect:/admin/product/list");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/admin/product/update", method = RequestMethod.GET)
+	public ModelAndView productUpdateGet(ModelAndView mv, String pr_code) {
+		ProductVO product = productService.selectProduct(pr_code);
+		mv.addObject("pr", product);
+		mv.setViewName("/admin/productUpdate");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/admin/product/update", method = RequestMethod.POST)
+	public ModelAndView productUpdatePost(ModelAndView mv, ProductVO product, MultipartFile file
+			,HttpServletResponse response) {
+		boolean res = productService.updateProduct(product, file);
+		if(res) 
+			messageService.message(response, "제품을 수정했습니다.", "/lg/admin/product/list");
+		else
+			messageService.message(response, "제품을 수정하지 못했습니다.", "/lg/admin/product/list");
+		mv.setViewName("/admin/productUpdate");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/admin/product/size", method = RequestMethod.GET)
+	public ModelAndView productSizeGet(ModelAndView mv, String pr_code) {
+		ProductVO product = productService.selectProduct(pr_code);
+		mv.addObject("pr", product);
+		mv.setViewName("/admin/productUpdate");
 		return mv;
 	}
 	
