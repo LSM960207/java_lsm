@@ -13,6 +13,7 @@ import kr.green.maranix.utils.UploadFileUtils;
 import kr.green.maranix.vo.CategoryVO;
 import kr.green.maranix.vo.LikesVO;
 import kr.green.maranix.vo.MemberVO;
+import kr.green.maranix.vo.ProductOptionVO;
 import kr.green.maranix.vo.ProductVO;
 
 @Service
@@ -27,7 +28,7 @@ public class ProductServiceImp implements ProductService {
 	public ArrayList<CategoryVO> getCategoryList() {
 		return productDao.selectCategoryList();
 	}
-
+	
 	@Override
 	public int insertCategory(CategoryVO category) {
 		if(category == null || 
@@ -132,7 +133,66 @@ public class ProductServiceImp implements ProductService {
 		if(pr_code == null || pr_code.length() != 6 || user == null)
 			return null;
 		
-		return productDao.selectLikes(pr_code, user.getMe_email());
+		return productDao.selectLikes(pr_code, user.getMe_id());
 	}
 
+	@Override
+	public ArrayList<ProductVO> selectProductListByLikes(MemberVO user) {
+		if(user == null || user.getMe_id() == null)
+			return null;
+		return productDao.selectProductListByLikes(user.getMe_id());
+	}
+
+	@Override
+	public int updateLikes(LikesVO likes) {
+		if(likes == null || 
+				likes.getLi_pr_code() == null ||
+				likes.getLi_pr_code().length() != 6 || 
+				likes.getLi_me_id() == null)
+			return -1;
+		LikesVO dbLikes = 
+				productDao.selectLikes(likes.getLi_pr_code(), likes.getLi_me_id());
+		if(dbLikes == null) {
+			productDao.insertLikes(likes);
+			return 1;
+		}
+		productDao.deleteLikes(likes);
+		return 0;
+	}
+
+	@Override
+	public ArrayList<ProductVO> selectProductList() {
+		return productDao.selectProductList2();
+	}
+
+	@Override
+	public ArrayList<ProductOptionVO> selectOptionList() {
+		return productDao.selectOptionList();
+	}
+	
+	@Override
+	public boolean deleteOption(String po_num) {
+		if(po_num == null)
+			return false;
+		ProductOptionVO product= productDao.selectOption(po_num);
+		if(product == null)
+			return false;
+		return productDao.deleteOption(po_num) == 1 ? true : false;
+	}
+	
+	@Override
+	public ProductOptionVO selectOption(String po_num) {
+		if(po_num == null)
+			return null;
+		
+		return productDao.selectOption(po_num);
+	}
+	
+	@Override
+	public void insertOption(ProductOptionVO productOptionVO) {
+		if(productOptionVO == null)
+			return;
+		
+		productDao.insertOption(productOptionVO);
+	}
 }

@@ -30,7 +30,7 @@ let page = 1;
 let cri = {
 		pr_ca_name : pr_ca_name,
 		page : page,
-		perPageNum : 2
+		perPageNum : 10
 }
 $(function(){
 	getProductList(cri);

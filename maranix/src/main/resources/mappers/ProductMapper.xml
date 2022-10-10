@@ -14,7 +14,7 @@
 		where (pr_title like concat('%',#{search},'%') or pr_code like concat('%',#{search},'%'))
 			and pr_ca_name like concat('%',#{pr_ca_name},'%')
 		order by pr_ca_name
-		limit #{pageStart}, #{perPageNum} 
+		limit #{pageStart}, #{perPageNum}
 	</select>
 	<select id="selectProductTotalCount" resultType="int">
 		select count(*) from product 
@@ -51,4 +51,47 @@
 		select * from likes 
 			where li_pr_code = #{pr_code} and li_me_id = #{me_id}
 	</select>
+	<select id="selectProductListByLikes" resultType="kr.green.maranix.vo.ProductVO">
+		select * from product 
+			join likes
+				on pr_code = li_pr_code 
+			where
+				li_me_id = #{me_id}
+	</select>
+	<insert id="insertLikes">
+		insert into likes(li_pr_code, li_me_id) values(#{li_pr_code},#{li_me_id})
+	</insert>
+	<delete id="deleteLikes">
+		delete from likes where li_pr_code = #{li_pr_code} and li_me_id = #{li_me_id}
+	</delete>
+	<select id="selectCategoryPrList" resultType="kr.green.maranix.vo.CategoryVO">
+		select a.ca_name, a.ca_code, a.ca_count, b.pr_ca_name, b.pr_code from category a
+		join product b on a.ca_name = b.pr_ca_name; 
+	</select>
+	
+	<select id="selectProductList2" resultType="kr.green.maranix.vo.ProductVO">
+		select * from product 
+		order by pr_ca_name
+	</select>
+	
+	<select id="selectOptionList" resultType="kr.green.maranix.vo.ProductOptionVO">
+		select a.po_num, a.po_pr_code, a.po_count, a.po_name,
+					 b.pr_code, b.pr_title
+		from productoption a 
+		join product b on a.po_pr_code = b.pr_code
+		order by po_num
+	</select>		
+	
+	<select id="selectOption" resultType="kr.green.maranix.vo.ProductOptionVO">
+		select * from productoption where po_num = #{po_num}
+	</select>
+	<delete id="deleteOption">
+		delete from productoption where po_num = #{po_num}
+	</delete>
+	
+	<insert id="insertOption">
+		insert into productoption(po_num, po_pr_code, po_count, po_name)
+		values(#{po_num}, #{po_pr_code}, #{po_count}, #{po_name})
+	</insert>
+	
 </mapper>

@@ -103,6 +103,19 @@ $(function(){
 		"Please check your input."
 );
 
+function ajaxPost(async, dataObj, url, success){
+	$.ajax({
+	  async:async,
+	  type:'POST',
+	  data:JSON.stringify(dataObj),
+	  url:"<%=request.getContextPath()%>"+url,
+	  dataType:"json",
+	  contentType:"application/json; charset=UTF-8",
+	  success : function(data){
+		  success(data);
+	  }
+  });
+}
 
 </script>
 </body>

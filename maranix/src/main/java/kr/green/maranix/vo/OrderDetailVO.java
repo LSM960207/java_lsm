@@ -9,5 +9,5 @@ public class OrderDetailVO {
 	private int od_price;
 	private String od_state;
 	private int od_or_num;
-	private String od_po_name;
+	private int od_po_num;
 }

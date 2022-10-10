@@ -7,126 +7,104 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-[name=file]{
-	display: none;
+.btn-del{
+	padding : 0; border: none; background-color: transparent; color : #ffc107;
 }
-.box-thumb{
-	width: 150px; height: 150px; border:1px solid red;
-	text-align: center; font-size : 50px; line-height: 148px;
-	cursor: pointer; box-sizing: border-box;
+form.btn:hover .btn-del{
+	color : #fff;
 }
-#preview{
-	display: none;
+form.btn{
+	margin-bottom: 0;
 }
 </style>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 </head>
 <body>
-<form class="container" enctype="multipart/form-data" method="post">
 	<h2>제품 사이즈 등록</h2>
 	<div class="clearfix">
-		<div class="float-left" style="width:auto; height: auto">
-			<div class="box-thumb">+</div>
-			<input type="file" name="file">
-			<img id="preview" width="150" height="150">
+		<div class="float-left">
+			<div class="form-group">
+				<table>
+					<colgroup>
+					<col width="40%"/>
+					<col width="auto"/>
+					</colgroup>
+						<tr>
+							<td colspan="2">
+								<select class="form-control" name="iPr_title">
+							  	<option value="0">제품을 선택하세요.</option>
+							  	<c:forEach items="${list}" var="pr">
+							  		<option value="${pr.pr_code}">${pr.pr_title}</option>
+							  	</c:forEach>
+							  </select>
+						  </td>
+						  <td>
+						  </td>
+				  		<td align = "right">
+				  			<a href="<c:url value="/admin/option/insert"></c:url>">
+				  			<button class="btn btn-outline-primary">신규</button>
+				  			</a>
+				  		</td>
+						</tr>
+
+				</table>
+			</div>
 		</div>
-		<div class="float-right" style="width:calc(100% - 150px - 10px)">
-			<div class="form-group">
-			  <select class="form-control" name="pr_ca_name">
-			  	<option value="0">제품 카테고리를 선택하세요.</option>
-			  	<c:forEach items="${list}" var="ca">
-			  		<option value="${ca.pr_code}">${ca.ca_name}</option>
-			  	</c:forEach>
-			  </select>
-			</div>
-			<div class="form-group">
-			  <input type="text" class="form-control" readonly value="제품번호" name="pr_code">
-			</div>
-			<div class="form-group">
-			  <input type="text" class="form-control" name="pr_price" placeholder="제품 가격(정수)">
-			</div>
-		</div>
 	</div>
-	<div class="form-group">
-	  <input type="text" class="form-control" name="pr_title" placeholder="제품 제목">
+<div class="container">
+	<table border="1">
+		<colgroup>
+			<col width="7%"/>
+			<col width="15%"/>
+			<col width="30%"/>
+			<col width="15%"/>
+			<col width="15%"/>
+		</colgroup>
+			<thead>
+				<tr>
+					<th>옵션번호</th>
+					<th>제품코드</th>
+					<th>제품명</th>
+					<th>제품사이즈</th>
+					<th>수량</th>
+				</tr>
+				</thead>
+       <tbody>
+       <c:forEach items="${oList}" var="po">
+	      <tr>
+	        <td class='text-center'>${po.po_num}</td>
+	        <td class='text-center'>${po.po_pr_code}</td>
+	        <td class='text-center'>${po.pr_title}</td>
+	        <td class='text-center'>${po.po_name}</td>
+	        <td class='text-center'>${po.po_count}</td>
+	        <td>
+	        	<a class="btn btn-outline-warning" href="<c:url value="/admin/option/update?po_num=${po.po_num}"></c:url>">수정</a>
+	        	<form class="btn btn-outline-danger" action="<c:url value="/admin/option/delete"></c:url>" method="post">
+	        		<button class="btn-del">삭제</button>
+	        		<input type="hidden" name="po_num" value="${po.po_num}">
+	        	</form>
+	        </td>
+	      </tr>
+      </c:forEach>
+       </tbody>
+	</table>
 	</div>
-	<div class="form-group">
-	  <textarea class="form-control" name="pr_content" placeholder="제품 상세"></textarea>
-	</div>
-	<div class="form-group">
-	  <textarea class="form-control" name="pr_count" placeholder="제품 재고량"></textarea>
-	</div>
-	<button class="btn btn-outline-danger col-12">제품 수정</button>
-</form>
 <script type="text/javascript">
 $(function(){
-	$('.box-thumb, #preview').click(function(){
-		$('[name=file]').click();
-	})
-	
-	$('[name=file]').on('change', function(event) {
-		if(event.target.files.length == 0){
-			$('.box-thumb').show();
-			$('#preview').hide();
-			return;
-		}else{
-			$('.box-thumb').hide();
-			$('#preview').show();
-		}
-		var file = event.target.files[0];
-    var reader = new FileReader(); 
-    reader.onload = function(e) {
-      $('#preview').attr('src', e.target.result);
-    }
-    reader.readAsDataURL(file);
-	});
-	
-	$('[name=pr_content]').summernote({
-    placeholder: '제품 설명을 입력하세요.',
-    tabsize: 2,
-    height: 300
-  });
-	$('[name=pr_ca_name]').change(function(){
-		$('[name=pr_code]').val($(this).val());
-	})
 	$('form').submit(function(){
-		let thumb_img = $('[name=file]').val();
-		if(thumb_img == ''){
-			alert('썸네일 이미지를 선택하세요.');
-			$('[name=file]').click();
-			return false;
-		}
 		let pr_ca_name = $('[name=pr_ca_name]').val();
 		if(pr_ca_name == '0'){
 			alert('제품 종류를 선택하세요.');
 			$('[name=pr_ca_name]').focus();
 			return false;
 		}
-		let pr_price = $('[name=pr_price]').val();
-		if(pr_ca_name == '' || !/\d+/.test(pr_price)){
-			alert('올바른 가격을 입력하세요.');
-			$('[name=pr_price]').focus();
-			return false;
-		}
-		let pr_title = $('[name=pr_title]').val();
-		if(pr_title == ''){
-			alert('제품 제목을 입력하세요.');
-			$('[name=pr_title]').focus();
-			return false;
-		}
-		let pr_content = $('[name=pr_content]').val();
-		if(pr_content == ''){
-			alert('제품 내용을 입력하세요.');
-			$('[name=pr_content]').focus();
-			return false;
-		}
-		let pr_count = $('[name=pr_count]').val();
-		if(pr_count == 0){
-			alert('제품 수량을 입력하세요.');
-			$('[name=pr_count]').focus();
-			return false;
-		}
 	});
 })
+
 </script>
+
+
+<!-- 	$('[name=pr_ca_name]').change(function(){
+		$('[name=pr_code]').val($(this).val());
+	}) -->

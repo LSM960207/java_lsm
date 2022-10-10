@@ -46,7 +46,7 @@
 			  <label for="me_email">이메일</label>
 			  <input type="text" class="form-control" id="me_email" name="me_email" value="${user.me_email }">
 			</div>
-			<button class="btn btn-outline-success col-12 mb-5">회원정수정</button>
+			<button class="btn btn-outline-success col-12 mb-5">회원정보수정</button>
 		</form>
 	</div>
 	<script type="text/javascript">	

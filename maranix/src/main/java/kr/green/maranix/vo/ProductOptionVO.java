@@ -4,8 +4,10 @@ import lombok.Data;
 
 @Data
 public class ProductOptionVO {
-	private String po_name;
+	private int po_num;
 	private String po_pr_code;
-	private int po_count;
-	private String po_ps_name;
+	private String po_count;
+	private String po_name;
+	
+	private String pr_title;
 }

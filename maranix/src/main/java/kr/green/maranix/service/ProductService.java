@@ -8,6 +8,7 @@ import kr.green.maranix.pagination.Criteria;
 import kr.green.maranix.vo.CategoryVO;
 import kr.green.maranix.vo.LikesVO;
 import kr.green.maranix.vo.MemberVO;
+import kr.green.maranix.vo.ProductOptionVO;
 import kr.green.maranix.vo.ProductVO;
 
 public interface ProductService {
@@ -30,4 +31,17 @@ public interface ProductService {
 
 	LikesVO getLikes(String pr_code, MemberVO user);
 
+	ArrayList<ProductVO> selectProductListByLikes(MemberVO user);
+
+	int updateLikes(LikesVO likes);
+	
+	ArrayList<ProductVO> selectProductList();
+	
+	ArrayList<ProductOptionVO> selectOptionList();
+	
+	boolean deleteOption(String po_num);
+	
+	ProductOptionVO selectOption(String po_num);
+	
+	void insertOption(ProductOptionVO productOptionVO);
 }
