@@ -131,7 +131,7 @@ $(function(){
 		})
 	})
 	$(document).on('click','.link-qna',function(e){
-		if($(this).data('secret') == 1 && $(this).parent().siblings().text() != '${user.me_email}'){
+		if($(this).data('secret') == 1 && $(this).parent().siblings().text() != '${user.me_id}'){
 			alert('비밀문의는 작성자와 관리자만 확인할 수 있습니다.');
 			e.preventDefault();
 		}

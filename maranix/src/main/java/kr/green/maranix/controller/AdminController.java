@@ -153,7 +153,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "/admin/option/insert", method = RequestMethod.POST)
 	public ModelAndView optionInsertPost(ModelAndView mv,ProductOptionVO productOptionVO, HttpServletResponse response) {
-		
+		System.out.println(productOptionVO);
 		productService.insertOption(productOptionVO);
 		mv.setViewName("redirect:/admin/product/size");
 		return mv;

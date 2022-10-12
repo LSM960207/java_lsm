@@ -32,7 +32,7 @@ public interface ProductDAO {
 
 	int updateProduct(ProductVO product);
 
-	LikesVO selectLikes(@Param("pr_code")String pr_code, @Param("me_email")String me_email);
+	LikesVO selectLikes(@Param("pr_code")String pr_code, @Param("me_id")String me_id);
 
 	ArrayList<ProductVO> selectProductListByLikes(String me_id);
 

@@ -27,8 +27,8 @@ form.btn{
 			<div class="form-group">
 				<table>
 					<colgroup>
-					<col width="40%"/>
-					<col width="auto"/>
+						<col width="40%"/>
+						<col width="auto"/>
 					</colgroup>
 						<tr>
 							<td colspan="2">
@@ -47,7 +47,6 @@ form.btn{
 				  			</a>
 				  		</td>
 						</tr>
-
 				</table>
 			</div>
 		</div>

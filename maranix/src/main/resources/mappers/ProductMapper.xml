@@ -90,8 +90,8 @@
 	</delete>
 	
 	<insert id="insertOption">
-		insert into productoption(po_num, po_pr_code, po_count, po_name)
-		values(#{po_num}, #{po_pr_code}, #{po_count}, #{po_name})
+		insert into productoption(po_num, po_pr_code, po_name, po_count)
+		values(#{po_num}, #{po_pr_code}, #{po_name}, #{po_count})
 	</insert>
 	
 </mapper>

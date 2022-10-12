@@ -24,7 +24,7 @@
 </head>
 <body>
 <form class="container" enctype="multipart/form-data" method="post" action="<c:url value="/admin/product/update"></c:url>">
-	<h2>제품 사이즈 등록</h2>
+	<h2>제품 수정</h2>
 	<div class="clearfix">
 		<div class="float-left" style="width:auto; height: auto">
 			<div class="box-thumb">+</div>

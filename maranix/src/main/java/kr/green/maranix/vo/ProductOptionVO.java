@@ -6,8 +6,9 @@ import lombok.Data;
 public class ProductOptionVO {
 	private int po_num;
 	private String po_pr_code;
-	private String po_count;
+	private int po_count;
 	private String po_name;
 	
+	//따로 추가
 	private String pr_title;
 }

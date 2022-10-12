@@ -8,22 +8,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form name="form" id="form" class="container" enctype="multipart/form-data">
+<form name="form" id="form" class="container" enctype="multipart/form-data" method="post">
 	<table>
 		<tr>
 			<td colspan="2">
-				<select class="form-control" name="iPr_title">
+				<select class="form-control" name="po_pr_code">
 			  	<option value="0">제품을 선택하세요.</option>
 			  	<c:forEach items="${list}" var="pr">
 			  		<option value="${pr.pr_code}">${pr.pr_title}</option>
 			  	</c:forEach>
 			  </select>
 		  </td>
-		  <td>
-		  <input type="text" class="form-control" name="po_pr_code" id="po_pr_code" readonly>
-		  </td>
+		  
 			<td>
-				<select class="form-control" name="po_count" id="po_count">
+				<select class="form-control" name="po_name" id="po_name">
   				<option value="0">사이즈를 선택하세요.</option>
   				<option value="FREE">FREE</option>
   				<option value="S">S</option>
@@ -36,7 +34,7 @@
  				</select>
   		</td>
   		<td>
-  			<input type="text" class="form-control" placeholder="수량" name="po_name" id="po_name">
+  			<input type="text" class="form-control" placeholder="수량" name="po_count" id="po_count">
   		</td>
  		</tr>
  		<tr>
@@ -48,29 +46,7 @@
 	</table>
 </form>
 <script type="text/javascript">
-	$('form').submit(function(){
-		let iPr_title = $('[name=iPr_title]').val();
-		if(iPr_title == '0'){
-			alert('제품을 선택하세요.');
-			$('[name=iPr_title]').focus();
-			return false;
-		}
-		let iPo_name = $('[name=iPo_name]').val();
-		if(iPo_name == '0'){
-			alert('사이즈를 선택 하세요.');
-			$('[name=iPo_name]').focus();
-			return false;
-		}
-		let iPo_count = $('[name=iPo_count]').val();
-		if(iPo_count == ''){
-			alert('수량을 입력하세요');
-			$('[name=iPo_count]').focus();
-			return false;
-		}
-	});
-	$('[name=iPr_title]').change(function(){
-		$('[name=po_pr_code]').val($(this).val());
-	})
+
 </script>
 </body>
 </html>
