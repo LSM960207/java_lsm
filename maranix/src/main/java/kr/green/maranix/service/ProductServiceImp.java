@@ -2,6 +2,7 @@ package kr.green.maranix.service;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -189,10 +190,23 @@ public class ProductServiceImp implements ProductService {
 	}
 	
 	@Override
-	public void insertOption(ProductOptionVO productOptionVO) {
+	public boolean insertOption(ProductOptionVO productOptionVO) {
 		if(productOptionVO == null)
-			return;
+			return false;
 		
-		productDao.insertOption(productOptionVO);
+	 return	productDao.insertOption(productOptionVO);
+	}
+	
+	@Override
+	public List<ProductOptionVO> selectProductOption(String po_num) {
+		return productDao.selectProductOption(po_num);
+	}
+
+	@Override
+	public boolean updateOption(ProductOptionVO productOption) {
+		if(productOption == null)
+			return false;
+		
+		return productDao.updateOption(productOption);
 	}
 }

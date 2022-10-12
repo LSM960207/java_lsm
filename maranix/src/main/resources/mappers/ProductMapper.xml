@@ -93,5 +93,22 @@
 		insert into productoption(po_num, po_pr_code, po_name, po_count)
 		values(#{po_num}, #{po_pr_code}, #{po_name}, #{po_count})
 	</insert>
-	
+
+	<select id="selectProductOption" resultType="kr.green.maranix.vo.ProductOptionVO">
+		select a.po_num, a.po_pr_code, a.po_name, a.po_count, b.pr_code, b.pr_title
+		from productoption a
+		join product b on a.po_pr_code = b.pr_code 
+			where 1=1
+		<if test="po_num != null and po_num != ''">
+			and a.po_num = #{po_num}
+		</if>
+	</select>
+	<update id="updateOption">
+		update productoption
+			set
+				po_pr_code = #{po_pr_code},
+				po_name = #{po_name},
+				po_count = #{po_count}
+			where po_num= #{po_num}
+	</update>
 </mapper>

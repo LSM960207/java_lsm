@@ -1,6 +1,7 @@
 package kr.green.maranix.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -48,5 +49,9 @@ public interface ProductDAO {
 	
 	ProductOptionVO selectOption(String po_num);
 	
-	void insertOption(ProductOptionVO productOptionVO);
+	boolean insertOption(ProductOptionVO productOptionVO);
+	
+	List<ProductOptionVO> selectProductOption(String po_num);
+
+	boolean updateOption(ProductOptionVO productOption);
 }

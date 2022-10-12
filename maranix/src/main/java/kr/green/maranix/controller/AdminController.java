@@ -2,6 +2,7 @@ package kr.green.maranix.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,7 @@ import kr.green.maranix.service.ProductService;
 import kr.green.maranix.vo.CategoryVO;
 import kr.green.maranix.vo.ProductOptionVO;
 import kr.green.maranix.vo.ProductVO;
+import kr.green.maranix.utils.StringUtils;
 
 
 @Controller
@@ -143,39 +145,45 @@ public class AdminController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/admin/option/insert", method = RequestMethod.GET)
-	public ModelAndView optionInsertGet(ModelAndView mv) {
-		ArrayList<ProductVO> productList = productService.selectProductList();
-		mv.addObject("list", productList);
-		mv.setViewName("/admin/optionInsert");
+	@RequestMapping(value = "/admin/option/info")
+	public ModelAndView optionInsertGet(ModelAndView mv, HttpServletRequest request) {
+		String po_num = StringUtils.nvl(request.getParameter("po_num"), "");
+		 //"" == insert    "" != update
+		if(po_num == "") {
+			ArrayList<ProductVO> prList = productService.selectProductList();
+			List<ProductOptionVO> poList = productService.selectProductOption(po_num);
+			mv.addObject("list", prList);
+			mv.addObject("optionList", poList);
+		}else {
+			List<ProductOptionVO> poList = productService.selectProductOption(po_num);
+			mv.addObject("po_num", po_num);
+			System.out.println(poList);
+			System.out.println(po_num);
+			mv.addObject("optionList", poList);
+		}
+		mv.setViewName("/admin/optionPage");
 		return mv;
 	}
 	
 	@RequestMapping(value = "/admin/option/insert", method = RequestMethod.POST)
-	public ModelAndView optionInsertPost(ModelAndView mv,ProductOptionVO productOptionVO, HttpServletResponse response) {
-		System.out.println(productOptionVO);
-		productService.insertOption(productOptionVO);
+	public ModelAndView optionInsertPost(ModelAndView mv,ProductOptionVO productOption, HttpServletResponse response) {
+		boolean res = productService.insertOption(productOption);
+		if(res) 
+			messageService.message(response, "제품옵션을 등록했습니다.", "/maranix/admin/product/size");
+		else
+			messageService.message(response, "제품옵션을 등록하지 못했습니다.", "/maranix/admin/product/size");
 		mv.setViewName("redirect:/admin/product/size");
 		return mv;
 	}
 	
-	@RequestMapping(value = "/admin/option/update", method = RequestMethod.GET)
-	public ModelAndView optionUpdateGet(ModelAndView mv, String po_num) {
-		ProductOptionVO product = productService.selectOption(po_num);
-		mv.addObject("pr", product);
-		mv.setViewName("/admin/productUpdate");
-		return mv;
-	}
-	
 	@RequestMapping(value = "/admin/option/update", method = RequestMethod.POST)
-	public ModelAndView optionUpdatePost(ModelAndView mv, ProductVO product, MultipartFile file
-			,HttpServletResponse response) {
-		boolean res = productService.updateProduct(product, file);
+	public ModelAndView optionUpdatePost(ModelAndView mv, ProductOptionVO productOption, HttpServletResponse response) {
+		boolean res = productService.updateOption(productOption);
 		if(res) 
-			messageService.message(response, "제품을 수정했습니다.", "/maranix/admin/product/list");
+			messageService.message(response, "제품을 수정했습니다.", "/maranix/admin/product/size");
 		else
-			messageService.message(response, "제품을 수정하지 못했습니다.", "/maranix/admin/product/list");
-		mv.setViewName("/admin/productUpdate");
+			messageService.message(response, "제품을 수정하지 못했습니다.", "/maranix/admin/product/size");
+		mv.setViewName("redirect:/admin/product/size");
 		return mv;
 	}
 	

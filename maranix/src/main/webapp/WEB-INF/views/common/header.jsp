@@ -49,13 +49,13 @@
 	<div class="collapse navbar-collapse" id="collapsibleNavbar">
 	   <ul class="navbar-nav">
 	   		<li class="nav-item">
-	        <a class="nav-link" href="<c:url value="/product/list"></c:url>">의류</a>
+	        <a class="nav-link" href="<c:url value="/product/cltList"></c:url>">의류</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="<c:url value="/product/list"></c:url>">모자</a>
+	        <a class="nav-link" href="<c:url value="/product/capList"></c:url>">모자</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="<c:url value="/product/list"></c:url>">스포츠용품</a>
+	        <a class="nav-link" href="<c:url value="/product/spgList"></c:url>">스포츠용품</a>
 	      </li>
 	   </ul>
 	</div> 

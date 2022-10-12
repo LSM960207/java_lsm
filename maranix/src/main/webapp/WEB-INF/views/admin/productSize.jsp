@@ -42,7 +42,7 @@ form.btn{
 						  <td>
 						  </td>
 				  		<td align = "right">
-				  			<a href="<c:url value="/admin/option/insert"></c:url>">
+				  			<a href="<c:url value="/admin/option/info"></c:url>">
 				  			<button class="btn btn-outline-primary">신규</button>
 				  			</a>
 				  		</td>
@@ -78,7 +78,7 @@ form.btn{
 	        <td class='text-center'>${po.po_name}</td>
 	        <td class='text-center'>${po.po_count}</td>
 	        <td>
-	        	<a class="btn btn-outline-warning" href="<c:url value="/admin/option/update?po_num=${po.po_num}"></c:url>">수정</a>
+	        	<a class="btn btn-outline-warning" href="<c:url value="/admin/option/info?po_num=${po.po_num}"></c:url>">수정</a>
 	        	<form class="btn btn-outline-danger" action="<c:url value="/admin/option/delete"></c:url>" method="post">
 	        		<button class="btn-del">삭제</button>
 	        		<input type="hidden" name="po_num" value="${po.po_num}">

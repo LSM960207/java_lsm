@@ -1,6 +1,7 @@
 package kr.green.maranix.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,5 +44,9 @@ public interface ProductService {
 	
 	ProductOptionVO selectOption(String po_num);
 	
-	void insertOption(ProductOptionVO productOptionVO);
+	boolean insertOption(ProductOptionVO productOptionVO);
+	
+	List<ProductOptionVO> selectProductOption(String po_num);
+
+	boolean updateOption(ProductOptionVO productOption);
 }
