@@ -111,4 +111,16 @@
 				po_count = #{po_count}
 			where po_num= #{po_num}
 	</update>
+
+	<select id="selectProductCaList" resultType="kr.green.maranix.vo.ProductVO">
+		select * from product 
+		where 1=1
+		and pr_title like concat('%',#{search},'%')
+		<if test="pr_ca_name != null and !pr_ca_name.equals('')">
+			and pr_ca_name = #{pr_ca_name}
+		</if>
+		order by pr_ca_name
+		limit #{pageStart}, #{perPageNum}
+	</select>
+
 </mapper>

@@ -49,4 +49,7 @@ public interface ProductService {
 	List<ProductOptionVO> selectProductOption(String po_num);
 
 	boolean updateOption(ProductOptionVO productOption);
+	
+	 ArrayList<ProductVO> selectProductCaList(Criteria cri);
+
 }

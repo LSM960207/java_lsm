@@ -209,4 +209,12 @@ public class ProductServiceImp implements ProductService {
 		
 		return productDao.updateOption(productOption);
 	}
+	
+	@Override
+	public ArrayList<ProductVO> selectProductCaList(Criteria cri) {
+		if(cri == null)
+			cri = new Criteria();
+		return productDao.selectProductCaList(cri);
+	}
+
 }

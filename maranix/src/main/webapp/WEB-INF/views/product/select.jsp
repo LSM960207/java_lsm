@@ -11,7 +11,7 @@
 	display: none;
 }
 .box-thumb{
-	width: 150px; height: 150px; border:1px solid red;
+	width: 300px; height: 300px; border:1px solid red;
 	text-align: center; font-size : 50px; line-height: 148px;
 	cursor: pointer; box-sizing: border-box;
 }
@@ -39,9 +39,9 @@
 	</h2>
 	<div class="clearfix">
 		<div class="float-left" style="width:auto; height: auto">
-			<img id="preview" width="150" height="150" src="<c:url value="${p.pr_thumb_url}"></c:url>">
+			<img id="preview" width="300" height="300" src="<c:url value="${p.pr_thumb_url}"></c:url>">
 		</div>
-		<div class="float-right" style="width:calc(100% - 150px - 10px)">
+		<div class="float-right" style="width:calc(100% - 300px - 10px)">
 			<div class="form-group">
 			  <input type="text" class="form-control" value="제품종류 : ${p.pr_ca_name }" readonly>
 			</div>
@@ -54,10 +54,10 @@
 		</div>
 	</div>
 	<div class="form-group">
-	  <input type="text" class="form-control" value="${p.pr_title }" readonly>
+	  <input type="text" class="form-control" value="${p.pr_title}" readonly>
 	</div>
 	<div class="form-group">
-	  <div class="form-control" style="height:auto">${p.pr_content }</div>
+	  <div class="form-control" style="height:auto">${p.pr_content}</div>
 	</div>
 	<div class="box-qna">
 		<h4>QnA</h4>

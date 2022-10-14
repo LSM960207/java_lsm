@@ -148,7 +148,7 @@ public class AdminController {
 	@RequestMapping(value = "/admin/option/info")
 	public ModelAndView optionInsertGet(ModelAndView mv, HttpServletRequest request) {
 		String po_num = StringUtils.nvl(request.getParameter("po_num"), "");
-		 //"" == insert    "" != update
+		 //"" == insert    "" != update po_num이 있으니까
 		if(po_num == "") {
 			ArrayList<ProductVO> prList = productService.selectProductList();
 			List<ProductOptionVO> poList = productService.selectProductOption(po_num);

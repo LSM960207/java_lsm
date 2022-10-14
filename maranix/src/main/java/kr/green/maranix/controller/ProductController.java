@@ -40,10 +40,39 @@ public class ProductController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/product/list", method = RequestMethod.GET)
-	public ModelAndView productList(ModelAndView mv, String ca_name) {
-		mv.addObject("pr_ca_name", ca_name);
-		mv.setViewName("/product/list");
+	@RequestMapping(value = "/list/capList", method = RequestMethod.GET)
+	public ModelAndView productCapList(ModelAndView mv,Criteria cri) {
+	  cri.setPr_ca_name("CAP");
+		ArrayList<ProductVO> list = productService.selectProductCaList(cri);
+		int totalCount = productService.getProductTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount, 3, cri);
+		mv.addObject("pm", pm);
+		mv.addObject("list", list);
+		mv.setViewName("/list/capList");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/list/clothList", method = RequestMethod.GET)
+	public ModelAndView productClothList(ModelAndView mv,Criteria cri) {
+		cri.setPr_ca_name("CLOTH");
+		ArrayList<ProductVO> list = productService.selectProductCaList(cri);
+		int totalCount = productService.getProductTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount, 3, cri);
+		mv.addObject("pm", pm);
+		mv.addObject("list", list);
+		mv.setViewName("/list/clothList");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/list/spgList", method = RequestMethod.GET)
+	public ModelAndView productSpgList(ModelAndView mv, Criteria cri) {
+		cri.setPr_ca_name("SPG");
+   	ArrayList<ProductVO> list = productService.selectProductCaList(cri);
+		int totalCount = productService.getProductTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount, 3, cri);
+		mv.addObject("pm", pm);
+		mv.addObject("list", list);
+		mv.setViewName("/list/spgList");
 		return mv;
 	}
 	

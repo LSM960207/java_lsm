@@ -16,6 +16,7 @@ form.btn:hover .btn-del{
 form.btn{
 	margin-bottom: 0;
 }
+
 </style>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
@@ -54,14 +55,15 @@ form.btn{
 <div class="container">
 	<table border="1">
 		<colgroup>
-			<col width="7%"/>
+			<col width="10%"/>
 			<col width="15%"/>
 			<col width="30%"/>
 			<col width="15%"/>
 			<col width="15%"/>
+			<col width="auto"/>
 		</colgroup>
 			<thead>
-				<tr>
+				<tr align="center">
 					<th>옵션번호</th>
 					<th>제품코드</th>
 					<th>제품명</th>
