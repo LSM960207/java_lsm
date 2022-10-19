@@ -10,15 +10,6 @@
 		      <li class="nav-item">
 		       	<a class="nav-link" href="<c:url value="/signup"></c:url>">회원가입</a>
 		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="<c:url value="/cart"></c:url>">장바구니</a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="<c:url value="/orderIn"></c:url>">주문조회</a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="<c:url value="/myPage"></c:url>">마이페이지</a>
-		      </li>
 		    </c:if>
 		    <c:if test="${user != null}">
 		      <li class="nav-item">
@@ -26,15 +17,6 @@
 		      </li>
 		      <li class="nav-item">
 		       	<a class="nav-link" href="<c:url value="/update"></c:url>">정보수정</a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="<c:url value="/cart"></c:url>">장바구니</a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="<c:url value="/orderIn"></c:url>">주문조회</a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="<c:url value="/myPage"></c:url>">마이페이지</a>
 		      </li>
 		    </c:if>
 		    <c:if test="${user.me_authority == 10 }">

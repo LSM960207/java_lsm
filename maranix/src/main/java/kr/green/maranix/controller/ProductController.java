@@ -18,8 +18,8 @@ import kr.green.maranix.pagination.Criteria;
 import kr.green.maranix.pagination.PageMaker;
 import kr.green.maranix.service.ProductService;
 import kr.green.maranix.vo.CategoryVO;
-import kr.green.maranix.vo.LikesVO;
 import kr.green.maranix.vo.MemberVO;
+import kr.green.maranix.vo.ProductOptionVO;
 import kr.green.maranix.vo.ProductVO;
 
 @Controller
@@ -28,14 +28,15 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 	
-	@RequestMapping(value = "/product/select", method = RequestMethod.GET)
+	@RequestMapping(value = "/product/select")
 	public ModelAndView productSelect(ModelAndView mv, String pr_code,
 			HttpSession session) {
 		ProductVO product = productService.selectProduct(pr_code);
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		LikesVO likes = productService.getLikes(pr_code, user);
-		mv.addObject("li", likes);
+		ArrayList<ProductOptionVO> poList = productService.selectPrOptionList(pr_code);
+		mv.addObject("user", user);
 		mv.addObject("p", product);
+		mv.addObject("optionList", poList);
 		mv.setViewName("/product/select");
 		return mv;
 	}
@@ -76,15 +77,6 @@ public class ProductController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/likes/list", method = RequestMethod.GET)
-	public ModelAndView likesList(ModelAndView mv, HttpSession session) {
-		MemberVO user = (MemberVO)session.getAttribute("user");
-		ArrayList<ProductVO> list = productService.selectProductListByLikes(user);
-		mv.addObject("list", list);
-		mv.setViewName("/product/likesList");
-		return mv;
-	}
-	
 	@RequestMapping(value="/category/list", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<Object,Object> categoryList() {
@@ -106,13 +98,5 @@ public class ProductController {
 		return map;
 	}
 	
-	@RequestMapping(value="/likes", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<Object,Object> likes(@RequestBody LikesVO likes) {
-		HashMap<Object,Object> map = new HashMap<Object, Object>();
-		int res = productService.updateLikes(likes);
-		map.put("res", res);
-		return map;
-	}
 	
 }

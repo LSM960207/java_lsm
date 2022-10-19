@@ -23,9 +23,9 @@ $(document).ready(function(){
 				<c:if test="${empty po_num }">
 					<select class="form-control" name="po_pr_code">
 			  		<option value="0">제품을 선택하세요.</option>
-			  		<c:forEach items="${list}" var="pr">
-			  			<option value="${pr.pr_code}">${pr.pr_title}</option>
-			  		</c:forEach>
+			  			<c:forEach items="${list}" var="pr">
+			  				<option value="${pr.pr_code}">${pr.pr_title}</option>
+			  				</c:forEach>
 			  	</select>
 			 	</c:if>
 			  <c:if test="${not empty po_num }">
@@ -46,6 +46,7 @@ $(document).ready(function(){
 	  			<option value="2XL">2XL</option>
 	  			<option value="3XL">3XL</option>
 	  			<option value="4XL">4XL</option>
+	  			<option value="none">none</option>
  				</select>
   		</td>
   		<td>
@@ -60,7 +61,7 @@ $(document).ready(function(){
  		<tr>
 	 		<td>
 	 			<button type="submit" form="form" class="btn btn-outline-primary" onclick="goSize();">전송</button>
-	 			<button type="button" class="btn btn-outline-danger">뒤로가기</button>	 			
+	 			<a href = "/maranix/admin/product/size"><button type="button" class="btn btn-outline-danger">뒤로가기</button></a>	 			
 	 		</td>
  		</tr>
 	</table>

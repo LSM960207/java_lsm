@@ -6,8 +6,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import org.apache.tiles.request.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.maranix.pagination.Criteria;
 import kr.green.maranix.pagination.PageMaker;
-import kr.green.maranix.service.BoardService;
 import kr.green.maranix.service.MessageService;
 import kr.green.maranix.service.ProductService;
 import kr.green.maranix.vo.CategoryVO;
@@ -34,8 +33,6 @@ public class AdminController {
 	ProductService productService;
 	@Autowired
 	MessageService messageService;
-	@Autowired
-	BoardService boardService;
   
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView home(ModelAndView mv) {
@@ -90,6 +87,17 @@ public class AdminController {
 		productService.insertProduct(product, file);
 		//messageService.message(response, "제품을 등록했습니다.", "/maranix/admin/product/list");
 		mv.setViewName("redirect:/admin/product/list");
+		return mv;
+	}
+	
+	@RequestMapping(value = "admin/product/select")
+	public ModelAndView productSelect(ModelAndView mv, String pr_code,
+			HttpSession session) {
+		ProductVO product = productService.selectProduct(pr_code);
+		ArrayList<ProductOptionVO> optionList = productService.selectAdminOptionList(pr_code);
+		mv.addObject("oList", optionList);
+		mv.addObject("p", product);
+		mv.setViewName("/admin/productSelect");
 		return mv;
 	}
 	
@@ -186,5 +194,6 @@ public class AdminController {
 		mv.setViewName("redirect:/admin/product/size");
 		return mv;
 	}
+
 	
 }

@@ -12,8 +12,6 @@ import kr.green.maranix.dao.ProductDAO;
 import kr.green.maranix.pagination.Criteria;
 import kr.green.maranix.utils.UploadFileUtils;
 import kr.green.maranix.vo.CategoryVO;
-import kr.green.maranix.vo.LikesVO;
-import kr.green.maranix.vo.MemberVO;
 import kr.green.maranix.vo.ProductOptionVO;
 import kr.green.maranix.vo.ProductVO;
 
@@ -130,38 +128,6 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public LikesVO getLikes(String pr_code, MemberVO user) {
-		if(pr_code == null || pr_code.length() != 6 || user == null)
-			return null;
-		
-		return productDao.selectLikes(pr_code, user.getMe_id());
-	}
-
-	@Override
-	public ArrayList<ProductVO> selectProductListByLikes(MemberVO user) {
-		if(user == null || user.getMe_id() == null)
-			return null;
-		return productDao.selectProductListByLikes(user.getMe_id());
-	}
-
-	@Override
-	public int updateLikes(LikesVO likes) {
-		if(likes == null || 
-				likes.getLi_pr_code() == null ||
-				likes.getLi_pr_code().length() != 6 || 
-				likes.getLi_me_id() == null)
-			return -1;
-		LikesVO dbLikes = 
-				productDao.selectLikes(likes.getLi_pr_code(), likes.getLi_me_id());
-		if(dbLikes == null) {
-			productDao.insertLikes(likes);
-			return 1;
-		}
-		productDao.deleteLikes(likes);
-		return 0;
-	}
-
-	@Override
 	public ArrayList<ProductVO> selectProductList() {
 		return productDao.selectProductList2();
 	}
@@ -169,6 +135,11 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public ArrayList<ProductOptionVO> selectOptionList() {
 		return productDao.selectOptionList();
+	}
+	
+	@Override
+	public ArrayList<ProductOptionVO> selectAdminOptionList(String pr_code) {
+		return productDao.selectAdminOptionList(pr_code);
 	}
 	
 	@Override
@@ -217,4 +188,8 @@ public class ProductServiceImp implements ProductService {
 		return productDao.selectProductCaList(cri);
 	}
 
+	@Override
+	public ArrayList<ProductOptionVO> selectPrOptionList(String pr_code) {
+		return productDao.selectPrOptionList(pr_code);
+	}
 }

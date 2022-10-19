@@ -43,7 +43,7 @@ form.btn{
 	        <td>${pro.pr_ca_name}</td>
 	        <td>${pro.pr_code}</td>
 	        <td>
-	        	<a href="<c:url value="/product/select?pr_code=${pro.pr_code}"></c:url>">${pro.pr_title}</a>
+	        	<a href="<c:url value="/admin/product/select?pr_code=${pro.pr_code}"></c:url>">${pro.pr_title}</a>
 	        </td>
 	        <td>${pro.pr_price}</td>
 	        <td>

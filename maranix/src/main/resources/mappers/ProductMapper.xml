@@ -47,10 +47,7 @@
 				pr_count = #{pr_count}
 			where pr_code= #{pr_code}
 	</update>
-	<select id="selectLikes" resultType="kr.green.maranix.vo.LikesVO">
-		select * from likes 
-			where li_pr_code = #{pr_code} and li_me_id = #{me_id}
-	</select>
+
 	<select id="selectProductListByLikes" resultType="kr.green.maranix.vo.ProductVO">
 		select * from product 
 			join likes
@@ -58,12 +55,15 @@
 			where
 				li_me_id = #{me_id}
 	</select>
+	
 	<insert id="insertLikes">
 		insert into likes(li_pr_code, li_me_id) values(#{li_pr_code},#{li_me_id})
 	</insert>
+	
 	<delete id="deleteLikes">
 		delete from likes where li_pr_code = #{li_pr_code} and li_me_id = #{li_me_id}
 	</delete>
+	
 	<select id="selectCategoryPrList" resultType="kr.green.maranix.vo.CategoryVO">
 		select a.ca_name, a.ca_code, a.ca_count, b.pr_ca_name, b.pr_code from category a
 		join product b on a.ca_name = b.pr_ca_name; 
@@ -80,11 +80,31 @@
 		from productoption a 
 		join product b on a.po_pr_code = b.pr_code
 		order by po_num
+	</select>
+	
+	<select id="selectOptionList2" resultType="kr.green.maranix.vo.ProductOptionVO">
+		select a.po_num, a.po_pr_code, a.po_name,
+					 b.pr_code
+		from productoption a 
+		join product b on a.po_pr_code = b.pr_code
+		order by po_num
 	</select>		
+	
+	<select id="selectAdminOptionList" resultType="kr.green.maranix.vo.ProductOptionVO">
+		select a.po_num, a.po_pr_code, a.po_name, a.po_count,
+						b.pr_code, b.pr_title
+		from productoption a
+		join product b on a.po_pr_code = b.pr_code
+		<if test="pr_code != null and pr_code != ''">
+			and b.pr_code = #{pr_code}
+		</if>
+		order by po_num
+	</select>
 	
 	<select id="selectOption" resultType="kr.green.maranix.vo.ProductOptionVO">
 		select * from productoption where po_num = #{po_num}
 	</select>
+	
 	<delete id="deleteOption">
 		delete from productoption where po_num = #{po_num}
 	</delete>
@@ -96,13 +116,14 @@
 
 	<select id="selectProductOption" resultType="kr.green.maranix.vo.ProductOptionVO">
 		select a.po_num, a.po_pr_code, a.po_name, a.po_count, b.pr_code, b.pr_title
-		from productoption a
-		join product b on a.po_pr_code = b.pr_code 
-			where 1=1
+			from productoption a
+			join product b on a.po_pr_code = b.pr_code 
+				where 1=1
 		<if test="po_num != null and po_num != ''">
 			and a.po_num = #{po_num}
 		</if>
 	</select>
+	
 	<update id="updateOption">
 		update productoption
 			set
@@ -123,4 +144,13 @@
 		limit #{pageStart}, #{perPageNum}
 	</select>
 
+	<select id="selectPrOptionList" resultType="kr.green.maranix.vo.ProductOptionVO">
+		select a.po_num, a.po_pr_code, a.po_name, b.pr_code, b.pr_title
+			from productoption a
+			join product b on a.po_pr_code = b.pr_code 
+				where 1=1
+		<if test="pr_code != null and pr_code != ''">
+			and b.pr_code = #{pr_code}
+		</if>
+	</select>
 </mapper>

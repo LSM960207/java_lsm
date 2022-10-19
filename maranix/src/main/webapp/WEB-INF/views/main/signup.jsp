@@ -69,7 +69,7 @@ $(function(){
      },
      //규칙체크 실패시 출력될 메시지
      messages : {
-    	 me_id: { required : "필수항목입니다."}
+    	 me_id: { required : "필수항목입니다."},
        me_pw: {	  required : "필수항목입니다."      },
        me_pw2: {
      	  required : "필수항목입니다.",

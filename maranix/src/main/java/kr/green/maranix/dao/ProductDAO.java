@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.green.maranix.pagination.Criteria;
 import kr.green.maranix.vo.CategoryVO;
-import kr.green.maranix.vo.LikesVO;
 import kr.green.maranix.vo.ProductOptionVO;
 import kr.green.maranix.vo.ProductVO;
 
@@ -33,13 +32,7 @@ public interface ProductDAO {
 
 	int updateProduct(ProductVO product);
 
-	LikesVO selectLikes(@Param("pr_code")String pr_code, @Param("me_id")String me_id);
-
 	ArrayList<ProductVO> selectProductListByLikes(String me_id);
-
-	void insertLikes(LikesVO likes);
-
-	void deleteLikes(LikesVO likes);
 
 	ArrayList<ProductVO> selectProductList2();
 	
@@ -56,4 +49,8 @@ public interface ProductDAO {
 	boolean updateOption(ProductOptionVO productOption);
 	
 	ArrayList<ProductVO> selectProductCaList(Criteria cri);
+
+	ArrayList<ProductOptionVO> selectPrOptionList(String pr_code);
+	
+	ArrayList<ProductOptionVO> selectAdminOptionList(String pr_code);
 }

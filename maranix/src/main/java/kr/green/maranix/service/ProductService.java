@@ -7,8 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.maranix.pagination.Criteria;
 import kr.green.maranix.vo.CategoryVO;
-import kr.green.maranix.vo.LikesVO;
-import kr.green.maranix.vo.MemberVO;
 import kr.green.maranix.vo.ProductOptionVO;
 import kr.green.maranix.vo.ProductVO;
 
@@ -29,12 +27,6 @@ public interface ProductService {
 	ProductVO selectProduct(String pr_code);
 
 	boolean updateProduct(ProductVO product, MultipartFile file);
-
-	LikesVO getLikes(String pr_code, MemberVO user);
-
-	ArrayList<ProductVO> selectProductListByLikes(MemberVO user);
-
-	int updateLikes(LikesVO likes);
 	
 	ArrayList<ProductVO> selectProductList();
 	
@@ -50,6 +42,9 @@ public interface ProductService {
 
 	boolean updateOption(ProductOptionVO productOption);
 	
-	 ArrayList<ProductVO> selectProductCaList(Criteria cri);
+	ArrayList<ProductVO> selectProductCaList(Criteria cri);
 
+	ArrayList<ProductOptionVO> selectPrOptionList(String pr_code);
+
+	ArrayList<ProductOptionVO> selectAdminOptionList(String pr_code);
 }
