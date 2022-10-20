@@ -20,13 +20,13 @@
  			<input type="text" class="form-control" id="or_pname" name="or_pname" value="" placeholder="성함">
 		</div>
 		<div class="input-group mb-3">
-			<input type="text" id="sample6_postcode" name="or_post"placeholder="우편번호(5자리)" class="form-control postNum">
+			<input type="text" id="or_post" name="or_post" placeholder="우편번호(5자리)" class="form-control postNum">
 			<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class=" form-control findPostNum"><br>
 		</div>
-		<input type="text" id="sample6_address" name="or_addr1" placeholder="주소" class=" form-control addr1"><br>
+		<input type="text" id="or_addr1" name="or_addr1" placeholder="주소" class=" form-control addr1"><br>
 		<div class="input-group mb-3">
-			<input type="text" id="sample6_detailAddress" name="or_addr2" placeholder="상세주소" class=" form-control addr2">
-			<input type="text" id="sample6_extraAddress" placeholder="참고항목" class=" form-control index">
+			<input type="text" id="or_addr2" name="or_addr2" placeholder="상세주소" class=" form-control addr2">
+			<input type="text" id="sample6_extraAddress" name="sample6_extraAddress" placeholder="참고항목" class=" form-control index">
 		</div>
 		<div class="form-group">
  			<label for="od_tel">휴대전화 : </label>
@@ -37,7 +37,7 @@
  			<input type="text" class="form-control" id="or_email" name="or_email" value="${user.me_email}">
 		</div>
 		<select class="form-control mb-3" name="or_request" id="or_request">
-  		<option value="0">- 요청사항 선택 -</option>
+  		<option value="0">- 요청사항 (필수) -</option>
   		<option value="배송 전 미리 연락바랍니다.">배송 전 미리 연락바랍니다.</option>
   		<option value="부재 시 경비실에 맡겨주세요.">부재 시 경비실에 맡겨주세요.</option>
   		<option value="부재 시 문 앞에 놓아주세요.">부재 시 문 앞에 놓아주세요.</option>
@@ -70,7 +70,8 @@
 	 		<table class="table">
 	 			<tr>
 	 				<th>주문상품</th>
-	 				<td style="text-align: right">${price}원</td>
+	 				<td style="text-align: right">${price * amount}원</td>
+	 				 <input type="hidden" class="form-control" id="od_price" name="od_price" value="${price * amount}">
 	 			</tr>
 	 			<tr>
 	 				<th>배송비</th>
@@ -79,6 +80,7 @@
 	 			<tr>
 	 				<th><h3>결제금액</h3></th>
 	 				<td style="text-align: right"><c:set var="total" value="${(price * amount)+3000}"/><h3>${total}원</h3></td>
+	 				<input type = "hidden" name="total" id="total" value="${total }">
 	 			</tr>		
 	 		</table>
 	 	</div>
@@ -160,10 +162,10 @@ function sample6_execDaumPostcode() {
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('sample6_postcode').value = data.zonecode;
-            document.getElementById("sample6_address").value = addr;
+            document.getElementById('or_post').value = data.zonecode;
+            document.getElementById("or_addr1").value = addr;
             // 커서를 상세주소 필드로 이동한다.
-            document.getElementById("sample6_detailAddress").focus();
+            document.getElementById("or_addr2").focus();
         }
     }).open();
 }

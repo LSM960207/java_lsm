@@ -68,13 +68,13 @@ $(document).ready(function(){
 </form>
 <script type="text/javascript">
 function goSize() {
-if($("#po_num").val() == null){
-		form.action = "/maranix/admin/option/insert";
-	}else {
-		form.action = "/maranix/admin/option/update";
-	}
-		form.method = "POST";
-		form.submit();
+	if($("#po_num").val() == null){
+			form.action = "/maranix/admin/option/insert";
+		}else {
+			form.action = "/maranix/admin/option/update";
+		}
+			form.method = "POST";
+			form.submit();
 }
 </script>
 </body>

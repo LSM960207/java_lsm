@@ -27,30 +27,28 @@
 <%-- 					<input type="hidden" value="" name="" id=""> --%>
 				</td>
 				<td>${p.pr_title}<br>${p.pr_content}</td>
-				<td>${total} 원</td>
-				<td>${amount}</td>
-				<td>${optionList[0].po_name}</td>
-				<td><span>${total} 원</span></td>
+				<td>${p.pr_price} 원</td>
+				<td>${od.od_amount}</td>
+				<td>${p.po_name}</td>
+				<td><span>${order.or_price} 원</span></td>
 			</tr>
 		</tbody>
 	</table>
 	<table class="table">
 		<thead>
 			<tr>
-				<th>주문자</th>
+				<th>수령인</th>
 				<th>배송지</th>
 				<th>전화번호</th>
-				<th>배송상태</th>
 				<th>요청사항</th>
 			</tr>
 		</thead>
 		<tbody style="text-align: left;">
 			<tr>
-				<td></td>
-				<td><br></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td>${order.or_pname}</td>
+				<td>${order.or_addr1}<br>${order.or_addr2}</td>
+				<td>${order.or_tel}</td>
+				<td>${order.or_request}</td>
 			</tr>
 		</tbody>
 	</table>

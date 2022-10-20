@@ -44,19 +44,47 @@ public class OrderController {
 		mv.setViewName("/order/form");
 		return mv;
 	}
-	
-	@RequestMapping(value = "/order/insert", method = RequestMethod.GET)
-	public ModelAndView orderInsertGet(ModelAndView mv, HttpSession session, OrderDetailVO odVO, OrderVO oVO, HttpServletRequest request ) {
-		odVO = productService.selectProduct(od_po_num);
-		MemberVO user = (MemberVO)session.getAttribute("user");
-		mv.addObject("user", user);
-		mv.setViewName("/order/result");
-		return mv;
-	}
+	/*
+	 * @RequestMapping(value = "/order/insert", method = RequestMethod.GET) public
+	 * ModelAndView orderInsertGet(ModelAndView mv, HttpSession session,
+	 * OrderDetailVO odVO, OrderVO oVO, HttpServletRequest request ) {
+	 * 
+	 * mv.setViewName("/order/result"); return mv; }
+	 */
 	
 	@RequestMapping(value = "/order/insert", method = RequestMethod.POST)
 	public ModelAndView orderInsertPost(ModelAndView mv, HttpSession session, OrderDetailVO odVO, OrderVO oVO, HttpServletRequest request ) {
+		String po_num = request.getParameter("od_po_num"); //Product
+		String od_amount = request.getParameter("od_amount");//OrderDetail
+		String od_price = request.getParameter("od_price");//OrderDetail
+		String or_addr1 = request.getParameter("or_addr1"); //주소, Order
+		String sample6_extraAddress = request.getParameter("sample6_extraAddress"); //참고항목, Order
+		String totalAddr = or_addr1 + sample6_extraAddress; //주소+참고항목, Order
+		String total = request.getParameter("total"); //총금액, Order
+		MemberVO user = (MemberVO)session.getAttribute("user");
 		
+		oVO.setOr_me_id(user.getMe_id());
+		oVO.setOr_addr1(totalAddr);
+		oVO.setOr_price(total);
+		orderService.insertOrder(oVO);
+		
+		odVO.setOd_amount(od_amount);
+		odVO.setOd_price(od_price);
+		orderService.insertOrderDetail(odVO);
+		
+		ProductOptionVO product = productService.selectPrOption(po_num);
+		
+		OrderVO orNum = new OrderVO();
+		orNum.setOr_num(orNum.getOr_num());
+		OrderVO order = orderService.selectOrder(orNum);
+		
+		OrderDetailVO odNum = new OrderDetailVO();
+		odNum.setOd_num(odNum.getOd_num());
+		OrderDetailVO od = orderService.selectOrderDetail(odNum);
+		
+		mv.addObject("p", product);
+		mv.addObject("or", order);
+		mv.addObject("od", od);
 		mv.setViewName("/order/result");
 		return mv;
 	}

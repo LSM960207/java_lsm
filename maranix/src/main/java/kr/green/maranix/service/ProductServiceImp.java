@@ -192,4 +192,9 @@ public class ProductServiceImp implements ProductService {
 	public ArrayList<ProductOptionVO> selectPrOptionList(String pr_code) {
 		return productDao.selectPrOptionList(pr_code);
 	}
+	
+	@Override
+	public ProductOptionVO selectPrOption(String po_num) {
+		return productDao.selectPrOption(po_num);
+	}	
 }

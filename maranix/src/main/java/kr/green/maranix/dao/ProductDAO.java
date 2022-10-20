@@ -53,4 +53,6 @@ public interface ProductDAO {
 	ArrayList<ProductOptionVO> selectPrOptionList(String pr_code);
 	
 	ArrayList<ProductOptionVO> selectAdminOptionList(String pr_code);
+	
+	ProductOptionVO selectPrOption(String po_num);
 }

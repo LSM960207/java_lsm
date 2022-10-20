@@ -153,4 +153,14 @@
 			and b.pr_code = #{pr_code}
 		</if>
 	</select>
+	
+		<select id="selectPrOption" resultType="kr.green.maranix.vo.ProductOptionVO">
+		select a.pr_code, a.pr_thumb, a.pr_title, a.pr_content, a.pr_price, a.pr_count, a.pr_ca_name, b.po_num, b.po_name, b.po_pr_code
+			from product a
+			join productoption b on a.pr_code = b.po_pr_code 
+				where 1=1
+		<if test="po_num != null and po_num != ''">
+			and b.po_num = #{po_num}
+		</if>
+	</select>
 </mapper>
