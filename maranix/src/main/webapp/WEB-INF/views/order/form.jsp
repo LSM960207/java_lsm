@@ -10,44 +10,34 @@
 <style>
 </style>
 </head>
-<script type="text/javascript">
-$(document).ready(function(){
-	var num1 = $("#pr_price").val();
-	var num2 = $("#od_amount").val();
-	var totalNum = num1 * num2;
-	$("#od_tPrice").val(totalNum);
-})
-
-</script>
 <body>
-
 <div class="container">
-
+	<form action="<%=request.getContextPath()%>/order/result" method="post">
 		<h1 class="text-center mt-3">주문 / 결제</h1>
 		<div class="form-group">
 			<h3>배송지</h3>
  			<label for="od_pname">받는 사람 : </label>
- 			<input type="text" class="form-control" id="od_pname" name="od_pname" placeholder="성함">
+ 			<input type="text" class="form-control" id="or_pname" name="or_pname" value="" placeholder="성함">
 		</div>
 		<div class="input-group mb-3">
-			<input type="text" id="sample6_postcode" placeholder="우편번호" class="form-control postNum">
+			<input type="text" id="sample6_postcode" name="or_post"placeholder="우편번호(5자리)" class="form-control postNum">
 			<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class=" form-control findPostNum"><br>
 		</div>
-		<input type="text" id="sample6_address" placeholder="주소" class=" form-control addr1"><br>
+		<input type="text" id="sample6_address" name="or_addr1" placeholder="주소" class=" form-control addr1"><br>
 		<div class="input-group mb-3">
-			<input type="text" id="sample6_detailAddress" placeholder="상세주소" class=" form-control addr2">
+			<input type="text" id="sample6_detailAddress" name="or_addr2" placeholder="상세주소" class=" form-control addr2">
 			<input type="text" id="sample6_extraAddress" placeholder="참고항목" class=" form-control index">
 		</div>
 		<div class="form-group">
  			<label for="od_tel">휴대전화 : </label>
- 				<input type="text" class="form-control" id="od_tel" name="od_tel" value="${user.me_phone}">
+ 				<input type="text" class="form-control" id="or_tel" name="or_tel" value="${user.me_phone}">
 		</div>
 		<div class="form-group">
  			<label for="od_email">이메일 : </label>
- 			<input type="text" class="form-control" id="od_email" name="od_email" value="${user.me_email}">
+ 			<input type="text" class="form-control" id="or_email" name="or_email" value="${user.me_email}">
 		</div>
 		<select class="form-control mb-3" name="or_request" id="or_request">
-  		<option value="0">- 메시지 선택 -</option>
+  		<option value="0">- 요청사항 선택 -</option>
   		<option value="배송 전 미리 연락바랍니다.">배송 전 미리 연락바랍니다.</option>
   		<option value="부재 시 경비실에 맡겨주세요.">부재 시 경비실에 맡겨주세요.</option>
   		<option value="부재 시 문 앞에 놓아주세요.">부재 시 문 앞에 놓아주세요.</option>
@@ -65,7 +55,7 @@ $(document).ready(function(){
 		  		<input type = "hidden" name="pr_code" id="pr_code" value="${p.pr_code }">
 				</div>
 				<div class="form-group">
-				  <input type="text" class="form-control" id="po_name" name="po_name" value="${optionList[0].po_name}" readonly>
+				  <input type="text" class="form-control" id="po_name" name="od_po_num" value="${optionList[0].po_name}" readonly>
 				</div>
 				<div class="form-group">
 				  <input type="text" class="form-control" id="pr_price" name="pr_price" value="${price}" readonly>
@@ -92,6 +82,11 @@ $(document).ready(function(){
 	 		</table>
 	 	</div>
 	 	<div class="clearfix"><h3>결제수단</h3>
+		 	<ul class="nav nav-tabs" role="tablist">
+		    <li class="nav-item">
+		      <a class="nav-link" data-toggle="tab">무통장입금</a>
+		    </li>
+	  	</ul>
 	 		<table class="table">
 	 			<tr>
 	 				<th>입금은행</th>
@@ -113,16 +108,17 @@ $(document).ready(function(){
  				</label>
  			</div>
  		</div>
-		<button class="btn btn-outline-success col-12 mb-5" onclick="goPay();">${total}원 결제하기</button>
-	</div>
+		<button type="submit" class="btn btn-outline-success col-12 mb-3">${total}원 결제하기</button>
+		<button type="button" class="btn btn-outline-danger col-12 goBack mb-3">돌아가기</button>
+	</form>
+</div>
 <script type="text/javascript">
+$('.goBack').click(function(event){
+	event.preventDefault();
+	location.assign("/maranix/product/select?pr_code="+$("#pr_code").val());
+});
 
-function goPay() {
-		form.action = "/maranix/admin/option/insert";	
-		form.method = "POST";
-		form.submit();
-	}
-	
+// 다음 우편번호
 function sample6_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {

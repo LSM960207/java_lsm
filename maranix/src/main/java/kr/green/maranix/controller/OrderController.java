@@ -13,7 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.maranix.service.OrderService;
 import kr.green.maranix.service.ProductService;
+import kr.green.maranix.service.MemberService;
 import kr.green.maranix.vo.MemberVO;
+import kr.green.maranix.vo.OrderDetailVO;
+import kr.green.maranix.vo.OrderVO;
 import kr.green.maranix.vo.ProductOptionVO;
 import kr.green.maranix.vo.ProductVO;
 
@@ -25,6 +28,8 @@ public class OrderController {
   OrderService orderService;
 	@Autowired
 	ProductService productService;
+	@Autowired
+	MemberService memberService;
   
 	@RequestMapping(value = "/order/form")
 	public ModelAndView orderForm(ModelAndView mv, String pr_code, HttpSession session, HttpServletRequest request) {
@@ -40,9 +45,17 @@ public class OrderController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/order/insert", method = RequestMethod.POST)
-	public ModelAndView orderInsert(ModelAndView mv) {
-		mv.setViewName("/order/insert");
+	@RequestMapping(value = "/order/result", method = RequestMethod.GET)
+	public ModelAndView orderInsertGet(ModelAndView mv, HttpSession session, OrderDetailVO odVO, OrderVO oVO, HttpServletRequest request ) {
+		
+		mv.setViewName("/order/result");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/order/result", method = RequestMethod.POST)
+	public ModelAndView orderInsertPost(ModelAndView mv, HttpSession session, OrderDetailVO odVO, OrderVO oVO, HttpServletRequest request ) {
+		
+		mv.setViewName("/order/result");
 		return mv;
 	}
 }
