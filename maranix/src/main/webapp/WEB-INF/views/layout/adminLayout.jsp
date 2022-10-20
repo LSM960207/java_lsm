@@ -26,10 +26,10 @@
 
 <tiles:insertAttribute name="header"/>
 <div class="container-fluid clearfix container-admin">
-	<div class="col-3 float-left container-menu" style="min-height: 300px">
+	<div class="col-2 float-left container-menu" style="min-height: 300px">
 		<tiles:insertAttribute name="menu" />
 	</div>
-	<div class="col-9 float-right">
+	<div class="col-10 float-right">
 		<tiles:insertAttribute name="body" />
 	</div>
 </div>

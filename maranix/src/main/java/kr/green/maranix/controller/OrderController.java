@@ -45,14 +45,16 @@ public class OrderController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/order/result", method = RequestMethod.GET)
+	@RequestMapping(value = "/order/insert", method = RequestMethod.GET)
 	public ModelAndView orderInsertGet(ModelAndView mv, HttpSession session, OrderDetailVO odVO, OrderVO oVO, HttpServletRequest request ) {
-		
+		odVO = productService.selectProduct(od_po_num);
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		mv.addObject("user", user);
 		mv.setViewName("/order/result");
 		return mv;
 	}
 	
-	@RequestMapping(value = "/order/result", method = RequestMethod.POST)
+	@RequestMapping(value = "/order/insert", method = RequestMethod.POST)
 	public ModelAndView orderInsertPost(ModelAndView mv, HttpSession session, OrderDetailVO odVO, OrderVO oVO, HttpServletRequest request ) {
 		
 		mv.setViewName("/order/result");

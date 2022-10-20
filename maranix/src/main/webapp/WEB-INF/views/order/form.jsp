@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="container">
-	<form action="<%=request.getContextPath()%>/order/result" method="post">
+	<form action="<%=request.getContextPath()%>/order/insert" method="post">
 		<h1 class="text-center mt-3">주문 / 결제</h1>
 		<div class="form-group">
 			<h3>배송지</h3>
@@ -55,7 +55,8 @@
 		  		<input type = "hidden" name="pr_code" id="pr_code" value="${p.pr_code }">
 				</div>
 				<div class="form-group">
-				  <input type="text" class="form-control" id="po_name" name="od_po_num" value="${optionList[0].po_name}" readonly>
+				  <input type="text" class="form-control" id="po_name" name="po_name" value="${optionList[0].po_name}" readonly>
+				  <input type="hidden" class="form-control"  name="od_po_num" value="${optionList[0].po_num}" readonly>
 				</div>
 				<div class="form-group">
 				  <input type="text" class="form-control" id="pr_price" name="pr_price" value="${price}" readonly>
