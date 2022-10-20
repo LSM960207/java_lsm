@@ -11,27 +11,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.green.maranix.service.OrderService;
+import kr.green.maranix.service.OrdersService;
 import kr.green.maranix.service.ProductService;
 import kr.green.maranix.service.MemberService;
 import kr.green.maranix.vo.MemberVO;
 import kr.green.maranix.vo.OrderDetailVO;
-import kr.green.maranix.vo.OrderVO;
+import kr.green.maranix.vo.OrdersVO;
 import kr.green.maranix.vo.ProductOptionVO;
 import kr.green.maranix.vo.ProductVO;
 
 
 @Controller
-public class OrderController {
+public class OrdersController {
 	
 	@Autowired
-  OrderService orderService;
+  OrdersService ordersService;
 	@Autowired
 	ProductService productService;
 	@Autowired
 	MemberService memberService;
   
-	@RequestMapping(value = "/order/form")
+	@RequestMapping(value = "/orders/form")
 	public ModelAndView orderForm(ModelAndView mv, String pr_code, HttpSession session, HttpServletRequest request) {
 		ProductVO product = productService.selectProduct(pr_code);
 		ArrayList<ProductOptionVO> poList = productService.selectPrOptionList(pr_code);
@@ -41,7 +41,7 @@ public class OrderController {
 		mv.addObject("user", user);
 		mv.addObject("p", product);
 		mv.addObject("optionList", poList);
-		mv.setViewName("/order/form");
+		mv.setViewName("/orders/form");
 		return mv;
 	}
 	/*
@@ -52,8 +52,8 @@ public class OrderController {
 	 * mv.setViewName("/order/result"); return mv; }
 	 */
 	
-	@RequestMapping(value = "/order/insert", method = RequestMethod.POST)
-	public ModelAndView orderInsertPost(ModelAndView mv, HttpSession session, OrderDetailVO odVO, OrderVO oVO, HttpServletRequest request ) {
+	@RequestMapping(value = "/orders/insert", method = RequestMethod.POST)
+	public ModelAndView orderInsertPost(ModelAndView mv, HttpSession session, OrderDetailVO odVO, OrdersVO oVO, HttpServletRequest request ) {
 		String po_num = request.getParameter("od_po_num"); //Product
 		String od_amount = request.getParameter("od_amount");//OrderDetail
 		String od_price = request.getParameter("od_price");//OrderDetail
@@ -66,26 +66,26 @@ public class OrderController {
 		oVO.setOr_me_id(user.getMe_id());
 		oVO.setOr_addr1(totalAddr);
 		oVO.setOr_price(total);
-		orderService.insertOrder(oVO);
+		ordersService.insertOrders(oVO);
 		
 		odVO.setOd_amount(od_amount);
 		odVO.setOd_price(od_price);
-		orderService.insertOrderDetail(odVO);
+		ordersService.insertOrderDetail(odVO);
 		
 		ProductOptionVO product = productService.selectPrOption(po_num);
 		
-		OrderVO orNum = new OrderVO();
+		OrdersVO orNum = new OrdersVO();
 		orNum.setOr_num(orNum.getOr_num());
-		OrderVO order = orderService.selectOrder(orNum);
+		OrdersVO orders = ordersService.selectOrders(orNum);
 		
 		OrderDetailVO odNum = new OrderDetailVO();
 		odNum.setOd_num(odNum.getOd_num());
-		OrderDetailVO od = orderService.selectOrderDetail(odNum);
+		OrderDetailVO od = ordersService.selectOrderDetail(odNum);
 		
 		mv.addObject("p", product);
-		mv.addObject("or", order);
+		mv.addObject("or", orders);
 		mv.addObject("od", od);
-		mv.setViewName("/order/result");
+		mv.setViewName("/orders/result");
 		return mv;
 	}
 }

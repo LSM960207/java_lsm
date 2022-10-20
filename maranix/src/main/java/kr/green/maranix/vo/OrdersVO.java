@@ -4,9 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import lombok.Data;
+import lombok.Getter;
 
+@Getter
 @Data
-public class OrderVO {
+public class OrdersVO {
 	private String or_num;
 	private String or_me_id;
 	private Date or_date;
@@ -18,6 +20,7 @@ public class OrderVO {
 	private String or_addr1;
 	private String or_addr2;
 	private String or_email;
+	private int or_od_num;
 
 	public String getOr_date_str() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

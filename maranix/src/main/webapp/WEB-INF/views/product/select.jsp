@@ -91,7 +91,7 @@ function goSize() {
 				alert('제품을 선택하세요');
 				return false;
 			}
-			form.action = "/maranix/order/form?pr_price="+$("#pr_price").val()+"&od_amount="+$("#od_amount").val();
+			form.action = "/maranix/orders/form?pr_price="+$("#pr_price").val()+"&od_amount="+$("#od_amount").val();
 			form.method = "POST";
 			form.submit();
 	}

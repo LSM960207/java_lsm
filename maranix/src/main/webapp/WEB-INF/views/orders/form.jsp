@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="container">
-	<form action="<%=request.getContextPath()%>/order/insert" method="post">
+	<form action="<%=request.getContextPath()%>/orders/insert" method="post">
 		<h1 class="text-center mt-3">주문 / 결제</h1>
 		<div class="form-group">
 			<h3>배송지</h3>

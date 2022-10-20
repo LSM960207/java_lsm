@@ -30,7 +30,7 @@
 				<td>${p.pr_price} 원</td>
 				<td>${od.od_amount}</td>
 				<td>${p.po_name}</td>
-				<td><span>${order.or_price} 원</span></td>
+				<td><span>${orders.or_price} 원</span></td>
 			</tr>
 		</tbody>
 	</table>
@@ -45,10 +45,10 @@
 		</thead>
 		<tbody style="text-align: left;">
 			<tr>
-				<td>${order.or_pname}</td>
-				<td>${order.or_addr1}<br>${order.or_addr2}</td>
-				<td>${order.or_tel}</td>
-				<td>${order.or_request}</td>
+				<td>${orders.or_pname}</td>
+				<td>${orders.or_addr1}<br>${order.or_addr2}</td>
+				<td>${orders.or_tel}</td>
+				<td>${orders.or_request}</td>
 			</tr>
 		</tbody>
 	</table>
